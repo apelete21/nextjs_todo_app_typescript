@@ -4,7 +4,7 @@ const inputStyle = "w-full my-2 rounded-lg p-2";
 const buttonStyle =
   "dark:bg-violet-800 bg-blue-600 dark:text-white text-white cursor-pointer hover:opacity-60";
 
-export default function Home() {
+export default function Login() {
   return (
     <>
       <div className="w-screen h-screen flex flex-col items-center justify-center">

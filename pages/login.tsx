@@ -1,14 +1,13 @@
+import { BackBtn } from "@/components/buttons";
+import { buttonStyle, inputStyle } from "@/data/styles";
 import Link from "next/link";
-
-const inputStyle = "w-full my-2 rounded-lg p-2";
-const buttonStyle =
-  "dark:bg-violet-800 bg-blue-600 dark:text-white text-white cursor-pointer hover:opacity-60";
 
 export default function Login() {
   return (
     <>
       <div className="w-screen h-screen flex flex-col items-center justify-center">
         <div className="w-[450px] h-auto bg text-center flex flex-col items-center p-4 justify-center rounded-2xl bg-gray-300 dark:bg-[#333]">
+          <BackBtn className={"self-start"} />
           <h1 className="w-full text-4xl font-bold my-[20px]">Todo App</h1>
           <h3 className="w-full mb-6 opacity-80">
             Welcome, enter your credentials

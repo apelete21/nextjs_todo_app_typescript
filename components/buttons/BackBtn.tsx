@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { FC, MouseEventHandler } from "react";
+import { MouseEventHandler } from "react";
 
 type Props = {
   className: String;
@@ -14,9 +14,9 @@ export function BackBtn({ className }: Props) {
     <>
       <span
         onClick={BackLink}
-        className={`${className} opacity-40 -mb-6 cursor-pointer`}
+        className={`${className} text-[15px] opacity-40 -mb-6 cursor-pointer`}
       >
-        back
+        Back
       </span>
     </>
   );

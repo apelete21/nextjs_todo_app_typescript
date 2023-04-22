@@ -14,7 +14,6 @@ export default function Home(): JSX.Element {
             <Link href="/login" className={`${inputStyle} ${buttonStyle}`}>
               Login
             </Link>
-            {/* <span className="text-[12px] mx-2">or</span> */}
             <Link href="/register" className={`${inputStyle} ${buttonStyle}`}>
               Sign In
             </Link>

@@ -6,7 +6,7 @@ export default function Login() {
   return (
     <>
       <div className="w-screen h-screen flex flex-col items-center justify-center">
-        <div className="w-[450px] h-auto bg text-center flex flex-col items-center p-4 justify-center rounded-2xl bg-gray-300 dark:bg-[#333]">
+        <div className="w-[450px] h-auto bg text-center flex flex-col items-center p-4 justify-center rounded-2xl bg-gray-300 dark:bg-[#222]">
           <BackBtn className={"self-start"} />
           <h1 className="w-full text-4xl font-bold my-[20px]">Todo App</h1>
           <h3 className="w-full mb-6 opacity-80">
@@ -16,12 +16,12 @@ export default function Login() {
           <input
             type="email"
             placeholder="Email"
-            className={`${inputStyle}  bg-gray-100 dark:bg-[#5555]`}
+            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <input
             type="password"
             placeholder="Password"
-            className={`${inputStyle}  bg-gray-100 dark:bg-[#5555]`}
+            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <input
             type="submit"

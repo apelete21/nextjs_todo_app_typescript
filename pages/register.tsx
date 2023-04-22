@@ -1,5 +1,5 @@
-import { BackBtn } from "@/components/buttons";
-import { buttonStyle, inputStyle } from "@/data/styles";
+import { BackBtn } from "@/components/buttons"
+import Styles from "@/data/styles";
 import Link from "next/link";
 
 type Props = {};
@@ -19,22 +19,22 @@ export default function Register({}: Props): JSX.Element {
           <input
             type="text"
             placeholder="Full name"
-            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
+            className={`${Styles.inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <input
             type="email"
             placeholder="Email"
-            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
+            className={`${Styles.inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <input
             type="password"
             placeholder="Password"
-            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
+            className={`${Styles.inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <input
             type="password"
             placeholder="Retype password"
-            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
+            className={`${Styles.inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <fieldset className="flex flex-row w-full px-2 my-2 items-center gap-4 relative">
             <input type="checkbox" className="" />
@@ -46,12 +46,15 @@ export default function Register({}: Props): JSX.Element {
           <input
             type="submit"
             value={"Create an account"}
-            className={`${inputStyle} ${buttonStyle}`}
+            className={`${Styles.inputStyle} ${Styles.buttonStyle}`}
           />
 
           <span className="text-[12px] my-3">or</span>
 
-          <Link href="/login" className={`${inputStyle} ${buttonStyle}`}>
+          <Link
+            href="/login"
+            className={`${Styles.inputStyle} ${Styles.buttonStyle}`}
+          >
             Back to Login
           </Link>
         </form>

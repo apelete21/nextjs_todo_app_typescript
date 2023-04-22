@@ -1,4 +1,4 @@
-import { buttonStyle, inputStyle } from "@/data/styles";
+import Styles from "@/data/styles";
 import Link from "next/link";
 
 export default function Home(): JSX.Element {
@@ -11,10 +11,10 @@ export default function Home(): JSX.Element {
             Welcome, select your action
           </h3>
           <div className="flex flex-row w-full items-center gap-2">
-            <Link href="/login" className={`${inputStyle} ${buttonStyle}`}>
+            <Link href="/login" className={`${Styles.inputStyle} ${Styles.buttonStyle}`}>
               Login
             </Link>
-            <Link href="/register" className={`${inputStyle} ${buttonStyle}`}>
+            <Link href="/register" className={`${Styles.inputStyle} ${Styles.buttonStyle}`}>
               Sign In
             </Link>
           </div>

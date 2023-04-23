@@ -4,9 +4,9 @@ import React from "react";
 type Props = {};
 
 const inputStyle: String = "w-full my-2 rounded-lg p-2 dark:text-black";
-const borderBottom: String = "border-b border-[#fff2]";
+const borderBottom: String = "border-b border-[#2222] dark:border-[#fff2]";
 const asideUserBtn: string =
-  "bg-blue-600 dark:bg-violet-800 hover:opacity-50 p-2 rounded-lg";
+  "bg-blue-600 dark:bg-violet-800 text-white hover:opacity-50 p-2 rounded-lg";
 
 const data: Array<Number | String> = [
   "dkjvksdjfvlkdfvkjdh",
@@ -47,7 +47,7 @@ const Dashboard = (props: Props) => {
     <div className="w-screen h-screen flex flex-row">
       <aside className="w-1/4 h-full dark:bg-neutral-950 bg-gray-300 flex flex-col select-none">
         {/* group search component */}
-        <div className="w-full h-fit flex-1 px-2 py-1 border-b-4 border-[#fff2]">
+        <div className="w-full h-fit flex-1 px-2 py-1 border-b-4 border-[#2222] dark:border-[#fff2]">
           <input type="text" placeholder="Search" className={`${inputStyle}`} />
         </div>
         {/* list item group task */}
@@ -74,7 +74,7 @@ const Dashboard = (props: Props) => {
           })}
         </ul>
         {/* user component */}
-        <div className="w-full h-fit flex-1 px-2 py-1 border-t-4 border-[#fff2]">
+        <div className="w-full h-fit flex-1 px-2 py-1 border-t-4 border-[#2222] dark:border-[#fff2]">
           <div className="flex flex-row justify-between items-center py-2">
             <div className="flex flex-row gap-4 items-center">
               <div className="w-[30px] h-[30px] bg-slate-600 rounded-full flex items-center justify-center text-center">

@@ -21,7 +21,7 @@ const TaskSchema = new Schema(
       required: false,
       default: `${now().getDate()}/${now().getMonth()}/${now().getFullYear()}`,
     },
-    author: {
+    group: {
       type: String,
       required: true,
     },

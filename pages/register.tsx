@@ -1,11 +1,13 @@
-import { BackBtn } from "@/components/buttons"
-import Styles from "@/data/styles";
+import { BackBtn } from "@/components/buttons";
 import Link from "next/link";
+
+const inputStyle: String = "w-full my-2 rounded-lg p-2";
+const buttonStyle: String =
+  "bg-blue-600 dark:bg-violet-800 text-white dark:text-white cursor-pointer hover:opacity-60";
 
 type Props = {};
 
 export default function Register({}: Props): JSX.Element {
-
   return (
     <div>
       <div className="w-screen h-screen flex flex-col items-center justify-center">
@@ -19,22 +21,22 @@ export default function Register({}: Props): JSX.Element {
           <input
             type="text"
             placeholder="Full name"
-            className={`${Styles.inputStyle} bg-gray-100 dark:bg-[#5555]`}
+            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <input
             type="email"
             placeholder="Email"
-            className={`${Styles.inputStyle} bg-gray-100 dark:bg-[#5555]`}
+            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <input
             type="password"
             placeholder="Password"
-            className={`${Styles.inputStyle} bg-gray-100 dark:bg-[#5555]`}
+            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <input
             type="password"
             placeholder="Retype password"
-            className={`${Styles.inputStyle} bg-gray-100 dark:bg-[#5555]`}
+            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <fieldset className="flex flex-row w-full px-2 my-2 items-center gap-4 relative">
             <input type="checkbox" className="" />
@@ -46,15 +48,12 @@ export default function Register({}: Props): JSX.Element {
           <input
             type="submit"
             value={"Create an account"}
-            className={`${Styles.inputStyle} ${Styles.buttonStyle}`}
+            className={`${inputStyle} ${buttonStyle}`}
           />
 
           <span className="text-[12px] my-3">or</span>
 
-          <Link
-            href="/login"
-            className={`${Styles.inputStyle} ${Styles.buttonStyle}`}
-          >
+          <Link href="/login" className={`${inputStyle} ${buttonStyle}`}>
             Back to Login
           </Link>
         </form>

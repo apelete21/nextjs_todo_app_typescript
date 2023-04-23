@@ -1,5 +1,8 @@
-import Styles from "@/data/styles";
 import Link from "next/link";
+
+const inputStyle: String = "w-full my-2 rounded-lg p-2";
+const buttonStyle: String =
+  "bg-blue-600 dark:bg-violet-800 text-white dark:text-white cursor-pointer hover:opacity-60";
 
 export default function Home(): JSX.Element {
   return (
@@ -11,10 +14,10 @@ export default function Home(): JSX.Element {
             Welcome, select your action
           </h3>
           <div className="flex flex-row w-full items-center gap-2">
-            <Link href="/login" className={`${Styles.inputStyle} ${Styles.buttonStyle}`}>
+            <Link href="/login" className={`${inputStyle} ${buttonStyle}`}>
               Login
             </Link>
-            <Link href="/register" className={`${Styles.inputStyle} ${Styles.buttonStyle}`}>
+            <Link href="/register" className={`${inputStyle} ${buttonStyle}`}>
               Sign In
             </Link>
           </div>

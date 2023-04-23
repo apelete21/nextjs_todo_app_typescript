@@ -31,5 +31,8 @@
     "tailwindcss": "3.3.1",
     "typescript": "5.0.4",
     "validator": "^13.9.0"
+  },
+  "devDependencies": {
+    "@types/validator": "^13.7.15"
   }
 }

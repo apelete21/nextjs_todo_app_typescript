@@ -1,6 +1,9 @@
 import { BackBtn } from "@/components/buttons";
-import Styles from "@/data/styles";
 import Link from "next/link";
+
+const inputStyle: String = "w-full my-2 rounded-lg p-2";
+const buttonStyle: String =
+  "bg-blue-600 dark:bg-violet-800 text-white dark:text-white cursor-pointer hover:opacity-60";
 
 export default function Login() {
   return (
@@ -16,17 +19,17 @@ export default function Login() {
           <input
             type="email"
             placeholder="Email"
-            className={`${Styles.inputStyle} bg-gray-100 dark:bg-[#5555]`}
+            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <input
             type="password"
             placeholder="Password"
-            className={`${Styles.inputStyle} bg-gray-100 dark:bg-[#5555]`}
+            className={`${inputStyle} bg-gray-100 dark:bg-[#5555]`}
           />
           <input
             type="submit"
             value={"Login"}
-            className={`${Styles.inputStyle} ${Styles.buttonStyle}`}
+            className={`${inputStyle} ${buttonStyle}`}
           />
           <Link href="#" className="text-[12px] text-right font-black w-full">
             Forgot your password ?
@@ -34,7 +37,7 @@ export default function Login() {
 
           <span className="text-[12px] mt-4 mb-6">or</span>
 
-          <Link href="/register" type="submit" className={`${Styles.inputStyle} ${Styles.buttonStyle}`}>
+          <Link href="/register" type="submit" className={`${inputStyle} ${buttonStyle}`}>
             Create an account
           </Link>
         </form>

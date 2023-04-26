@@ -1,4 +1,4 @@
-import { BackBtn } from "@/components/buttons";
+import { BackBtn } from "@/components";
 import Link from "next/link";
 
 const inputStyle: String = "w-full my-2 rounded-lg p-2";

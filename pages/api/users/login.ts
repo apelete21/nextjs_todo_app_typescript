@@ -1,15 +1,15 @@
-import { mongoConnect } from "@/libs";
+import { createToken, encrypt, mongoConnect, pwdCompare } from "@/libs";
 import { User } from "@/models";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const method = req.method;
   if (method !== "POST")
-    return res.status(405).send({ message: `Cannot ${method} at ${req.url}` });
+    return res.status(401).send({ message: `Cannot ${method} at ${req.url}` });
 
   const { email, password } = req.body;
   if (!email || !password)
-    return res.status(425).send({ message: `All fields are required!` });
+    return res.status(401).send({ message: `All fields are required!` });
 
   try {
     await mongoConnect();
@@ -18,13 +18,15 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       return res
         .status(405)
         .send({ message: `User with ${email} not exists!` });
-    
-    if (user?.password !== password) 
-        return res
-            .status(405)
-            .send({ message: `Invalid email or password!` });
 
-    res.status(200).send({ message: "Success", user });
+    const newCrypto = await encrypt(password);
+
+    if ((await pwdCompare(newCrypto, password)) === false)
+      return res.status(401).send({ message: `Invalid email or password!` });
+
+    const token = createToken(user?.password);
+
+    res.status(200).send({ message: "Success", user, token });
   } catch (error: any) {
     return res.status(500).send({ message: `${error.message}` });
   }

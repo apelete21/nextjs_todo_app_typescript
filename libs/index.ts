@@ -1,4 +1,4 @@
 export { mongoConnect } from "./db";
 export { createToken } from "./jwt";
-export { encrypt } from "./bcrypt";
+export { encrypt, pwdCompare } from "./bcrypt";
 export { validEmail, validPwd } from "./validator";

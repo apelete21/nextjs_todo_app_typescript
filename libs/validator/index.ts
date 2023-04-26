@@ -2,10 +2,10 @@ import validator from "validator";
 
 export const validPwd: Function = async (password: string) => {
   const response: any = validator.isStrongPassword(password, {
-    minSymbols: 0,
+    minSymbols: 1,
     minLength: 5,
-    minUppercase: 0,
-    minNumbers: 1,
+    minUppercase: 1,
+    minNumbers: 2,
   });
   return response;
 };

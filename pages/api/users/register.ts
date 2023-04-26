@@ -16,7 +16,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { name, email, password } = req.body;
   if (!name || !email || !password)
     return res.status(401).send({ message: `All fields are required!` });
-  if (validEmail(email) === false || validPwd(password))
+
+  if ((await validEmail(email)) === false || (await validPwd(password)))
     return res.status(401).send({ message: `Invalid Email or password` });
 
   try {
@@ -29,7 +30,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const cryptedPassword: string = await encrypt(password);
 
-    const newUser = await User.create({ name, email, cryptedPassword });
+    const newUser = await User.create({
+      name,
+      email,
+      password: cryptedPassword,
+    });
 
     const token = createToken(newUser?._id);
 

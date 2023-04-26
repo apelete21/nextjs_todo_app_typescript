@@ -3,11 +3,11 @@ import React, { useState } from "react";
 
 type Props = {};
 
-const inputStyle: String = "w-full my-2 rounded-lg p-2 dark:text-black";
-const labelStyle: String = "w-full rounded-lg p-2 z-[-1] text-center";
+const inputStyle: String = "w-full my-2 rounded-lg p-2 dark:text-black bg-gray-300";
+const labelStyle: String = "w-full rounded-lg p-2 z-[-1] text-center text-white";
 const checkboxStyle: String = "absolute w-full opacity-0 cursor-pointer";
 const inputContainer: String =
-  "w-full py-2 flex items-center justify-left relative gap-4";
+  "w-full py-2 flex items-center justify-left relative gap-4 text-white";
 const borderBottom: String = "border-b border-[#2222] dark:border-[#fff2]";
 const asideUserBtn: string =
   "bg-blue-600 dark:bg-violet-800 text-white hover:opacity-50 p-2 rounded-lg";
@@ -54,7 +54,7 @@ const Dashboard = (props: Props) => {
       <aside className="w-1/4 h-full dark:bg-neutral-950 bg-gray-300 flex flex-col select-none">
         {/* group search component */}
         <div className="w-full h-fit flex-1 px-2 py-1 border-b-4 border-[#2222] dark:border-[#fff2]">
-          <input type="text" placeholder="Search" className={`${inputStyle}`} />
+          <input type="text" placeholder="Search" className={`${inputStyle} bg-white`} />
         </div>
         {/* list item group task */}
         <ul className="w-full h-full overflow-scroll p-2">
@@ -208,13 +208,16 @@ const Dashboard = (props: Props) => {
               />
               <textarea
                 className={`${inputStyle} max-h-30 resize-none`}
-                rows={4}
+                rows={6}
                 placeholder="Description..."
               ></textarea>
               <div className="w-full flex items-center justify-left gap-4">
                 <div className={`${inputContainer}`}>
                   <input type="checkbox" className={`${checkboxStyle}`} />
-                  <label htmlFor="checkbox" className={`${labelStyle}`}>
+                  <label
+                    htmlFor="checkbox"
+                    className={`${labelStyle} text-black`}
+                  >
                     Status:
                   </label>
                 </div>
@@ -240,7 +243,10 @@ const Dashboard = (props: Props) => {
               <div className="w-full flex items-center justify-left gap-4">
                 <div className={`${inputContainer}`}>
                   <input type="checkbox" className={`${checkboxStyle}`} />
-                  <label htmlFor="checkbox" className={`${labelStyle}`}>
+                  <label
+                    htmlFor="checkbox"
+                    className={`${labelStyle} text-black`}
+                  >
                     Priority:
                   </label>
                 </div>

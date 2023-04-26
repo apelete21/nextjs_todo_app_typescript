@@ -1,4 +1,4 @@
-import { BackBtn } from "@/components/buttons";
+import { BackBtn } from "@/components";
 import React from "react";
 
 type Props = {};

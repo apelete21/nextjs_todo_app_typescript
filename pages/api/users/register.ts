@@ -13,8 +13,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (method !== "POST")
     return res.status(401).send({ message: `Cannot ${method} at ${req.url}` });
 
-  const { name, email, password } = req.body;
-  if (!name || !email || !password)
+  const { fullname, email, password } = req.body;
+  if (!fullname || !email || !password)
     return res.status(401).send({ message: `All fields are required!` });
 
   if ((await validEmail(email)) === false || (await validPwd(password)))
@@ -31,7 +31,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const cryptedPassword: string = await encrypt(password);
 
     const newUser = await User.create({
-      name,
+      fullname,
       email,
       password: cryptedPassword,
     });

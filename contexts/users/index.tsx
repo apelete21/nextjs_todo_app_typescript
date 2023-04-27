@@ -8,13 +8,13 @@ type Props = {
 
 export const UserContextProvider = (props: Props) => {
   const [sessionSet, setSessionSet] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   // controlling if user allready logged in on first load
-  useEffect(() => {
-    // here is the logic for controing the user session
-  }, [sessionSet]);
+  // useEffect(() => {
+  //   // here is the logic for controing the user session
+  // }, [sessionSet]);
 
   return (
     <>

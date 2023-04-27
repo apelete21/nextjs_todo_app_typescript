@@ -1,6 +1,6 @@
 import validator from "validator";
 
-export const validPwd: Function = async (password: string) => {
+export const validPwd = async (password: string) => {
   const response: any = validator.isStrongPassword(password, {
     minSymbols: 1,
     minLength: 5,
@@ -10,7 +10,7 @@ export const validPwd: Function = async (password: string) => {
   return response;
 };
 
-export const validEmail: Function = async (email: string) => {
+export const validEmail = async (email: string) => {
   const response: any = validator.isEmail(email);
   return response;
 };

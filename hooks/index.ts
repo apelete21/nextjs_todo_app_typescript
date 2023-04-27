@@ -3,29 +3,33 @@ import { useState } from "react";
 
 export const useIdentify = async (credentials: User, url: string) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  let headersList = {
+  const headersList = {
     Accept: "*/*",
     "Content-Type": "application/json",
   };
 
   const { name, email, password } = credentials;
 
-  setIsLoading(true)
+  setIsLoading(true);
 
-  let bodyContent = JSON.stringify({
+  const bodyContent = JSON.stringify({
     name,
     email,
     password,
   });
 
-  let response = await fetch(url, {
+  const response = await fetch(url, {
     method: "POST",
     body: bodyContent,
     headers: headersList,
   });
 
-  let data = await response.json();
-  setIsLoading(false)
-  return { data, isLoading };
+  const data = await response.json();
+
+  setError(response.ok);
+
+  setIsLoading(false);
+  return { data, isLoading, setIsLoading, error, setError };
 };

@@ -9,10 +9,6 @@ type Props = {
 };
 
 export const UserContextProvider = (props: Props) => {
-  // page load trnasitions
-  const router: any = useRouter();
-  const [pageLoading, setPageLoding] = useState(true);
-
   // *******************************
   const [sessionSet, setSessionSet] = useState(false);
   const [currentUser, setCurrentUser] = useState<object>();
@@ -23,17 +19,24 @@ export const UserContextProvider = (props: Props) => {
     // here is the logic for controing the user session
     async function refreshUser() {
       const token: string | null = localStorage.getItem("token");
-      if (!token) return;
-      setIsLoading(true);
-      const { data, success }: any = await authenticate(token);
-      if (success) {
-        setCurrentUser(data.user);
-        setSessionSet(true);
+      if (!token) {
+        return setTimeout(() => {
+          setIsLoading(false);
+        }, 1500);
       }
+      const { data, success }: any = await authenticate(token);
+      if (!success) {
+        return setTimeout(() => {
+          setIsLoading(false);
+        }, 1500);
+      }
+      setCurrentUser(data.user);
+      setSessionSet(true);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
     }
     refreshUser();
-    setPageLoding(false);
-    setIsLoading(false);
   }, [sessionSet]);
 
   return (
@@ -43,7 +46,6 @@ export const UserContextProvider = (props: Props) => {
           isLoading,
           sessionSet,
           currentUser,
-          pageLoading,
           setIsLoading,
           setSessionSet,
           setCurrentUser,

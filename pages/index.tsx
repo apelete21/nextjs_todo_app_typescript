@@ -3,24 +3,25 @@ import { UserContext } from "@/contexts";
 import { useContext } from "react";
 
 export default function Home() {
-  const { sessionSet, pageLoading }: any = useContext(UserContext);
+  const { sessionSet, isLoading }: any = useContext(UserContext);
 
-  if (sessionSet && !pageLoading) {
+  if (sessionSet && !isLoading) {
     return (
       <>
         <App />
       </>
     );
-  } else if (pageLoading) {
+  } else if (!sessionSet && !isLoading)
+    return (
+      <>
+        <Welcome />
+      </>
+    );
+  // else if (isLoading && !sessionSet) {
     return (
       <>
         <Loader />
       </>
     );
-  }
-  return (
-    <>
-      <Welcome />
-    </>
-  );
-}
+  } 
+// }

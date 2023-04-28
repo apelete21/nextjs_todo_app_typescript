@@ -1,7 +1,7 @@
 import { BackBtn } from "@/components";
 import { UserContext } from "@/contexts";
 import { User } from "@/libs";
-import { useIdentify } from "@/users";
+import { useIdentify } from "@/libs";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";

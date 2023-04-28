@@ -1,0 +1,30 @@
+import { mongoConnect } from "@/libs";
+import { User } from "@/models";
+import type { NextApiRequest, NextApiResponse } from "next";
+import jwt, { JwtPayload } from "jsonwebtoken";
+
+const SECRET_KEY: string = process.env.JWT_SECRET_KEY || "";
+
+export default async function (req: NextApiRequest, res: NextApiResponse) {
+  const authorization: any = req.headers.authorization;
+  const method = req.method;
+  if (method !== "POST")
+    return res.status(401).send({ message: `Cannot ${method} at ${req.url}` });
+
+  try {
+    const token: any = authorization.split("Bearer ")[0];
+    if (!token) {
+      return res.status(401).json({
+        message: "Invalid Token Format",
+      });
+    }
+    const decode: any = jwt.verify(token, SECRET_KEY);
+    const { id }: JwtPayload = decode;
+    await mongoConnect();
+    const user: any = await User.findOne({ _id: id });
+    if (!user) return res.status(405).send({ message: `User not found!` });
+    res.status(200).send({ message: "Success", user });
+  } catch (error: any) {
+    return res.status(401).send({ message: `${error.message}` });
+  }
+}

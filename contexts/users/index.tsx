@@ -1,3 +1,4 @@
+import { authenticate } from "@/libs";
 import { ReactNode, createContext, useEffect, useState } from "react";
 
 export const UserContext = createContext({});
@@ -12,9 +13,21 @@ export const UserContextProvider = (props: Props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // controlling if user allready logged in on first load
-  // useEffect(() => {
-  //   // here is the logic for controing the user session
-  // }, [sessionSet]);
+  useEffect(() => {
+    // here is the logic for controing the user session
+    async function refreshUser() {
+      setIsLoading(true)
+      const { data, success }: any = authenticate();
+      if (success) {
+        setCurrentUser(data.user);
+        setSessionSet(true);
+      } 
+      setIsLoading(false)
+    }
+    refreshUser();
+  }, [sessionSet]);
+
+  
 
   return (
     <>

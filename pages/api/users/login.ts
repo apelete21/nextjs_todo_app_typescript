@@ -22,7 +22,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     if ((await pwdCompare(password, user?.password)) === false)
       return res.status(401).send({ message: `Invalid email or password!` });
 
-    const token = createToken(user?.password);
+    const token = createToken(user?._id);
 
     res.status(200).send({ message: "Success", user, token });
   } catch (error: any) {

@@ -1,5 +1,4 @@
 import { User } from "@/libs";
-import { useState } from "react";
 
 export const useIdentify = async (credentials: User, url: string) => {
   const headersList = {
@@ -24,3 +23,18 @@ export const useIdentify = async (credentials: User, url: string) => {
   const data = await response.json();
   return { data, success: response.ok };
 };
+
+export async function authenticate() {
+  const token: string | null = localStorage.getItem("token");
+  const headersList = {
+    Accept: "*/*",
+    "Content-Type": "application/json",
+    authorization: `Bearer ${token}`,
+  };
+  const response = await fetch(`/api/users/auth`, {
+    method: "POST",
+    headers: headersList,
+  });
+  const data: any = await response.json();
+  return { data, success: response.ok };
+}

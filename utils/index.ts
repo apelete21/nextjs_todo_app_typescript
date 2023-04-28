@@ -24,8 +24,7 @@ export const useIdentify = async (credentials: User, url: string) => {
   return { data, success: response.ok };
 };
 
-export async function authenticate() {
-  const token: string | null = localStorage.getItem("token");
+export async function authenticate(token: any) {
   const headersList = {
     Accept: "*/*",
     "Content-Type": "application/json",

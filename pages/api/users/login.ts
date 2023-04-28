@@ -24,7 +24,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const token = createToken(user?._id);
 
-    res.status(200).send({ message: "Success", user, token });
+    res
+      .status(200)
+      .send({ message: "Success", user: { ...user, _id: null }, token });
   } catch (error: any) {
     return res.status(500).send({ message: `${error.message}` });
   }

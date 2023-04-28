@@ -1,27 +1,26 @@
-import { App, Welcome } from "@/components";
+import { App, Loader, Welcome } from "@/components";
 import { UserContext } from "@/contexts";
 import { useContext } from "react";
 
-export default function Home(): JSX.Element {
-  const {
-    isLoading,
-    sessionSet,
-    currentUser,
-    setIsLoading,
-    setSessionSet,
-    setCurrentUser,
-  }: any = useContext(UserContext);
+export default function Home() {
+  const { sessionSet, pageLoading }: any = useContext(UserContext);
 
-  if (sessionSet)
+  if (sessionSet && !pageLoading) {
     return (
       <>
         <App />
       </>
     );
-  else
+  } else if (pageLoading) {
     return (
       <>
-        <Welcome />
+        <Loader />
       </>
     );
+  }
+  return (
+    <>
+      <Welcome />
+    </>
+  );
 }

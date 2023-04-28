@@ -1,4 +1,5 @@
 import { UserContext } from "@/contexts";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 
@@ -29,12 +30,14 @@ export function User({}: Props) {
       <div className="w-full h-fit flex-1 px-2 py-1 border-t-4 border-[#2222] dark:border-[#fff2]">
         <div className="flex flex-row justify-between items-center py-2">
           <div className="flex flex-row gap-4 items-center">
-            <div className="w-[30px] h-[30px] bg-slate-600 rounded-full flex items-center justify-center text-center">
+            <div className="w-[30px] h-[30px] bg-white rounded-full flex items-center justify-center text-center">
               <b className="text-white">
-                {currentUser?.fullname.toUpperCase().charAt(0)}
+                <img src="/user.png" alt="" />
               </b>
             </div>
-            <div>{currentUser?.fullname?.toUpperCase().split(" ")[0]}</div>
+            <div>
+              {currentUser && currentUser.fullname?.toLocaleString().toUpperCase().split(" ")[0]}
+            </div>
           </div>
           <div className="flex flex-row gap-2">
             <button className={`${asideUserBtn}`} onClick={Logout}>

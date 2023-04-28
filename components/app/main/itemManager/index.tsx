@@ -5,7 +5,7 @@ type Props = {};
 const inputStyle: String =
   "w-full my-2 rounded-lg p-2 dark:text-black bg-gray-300";
 const labelStyle: String =
-  "w-full rounded-lg p-2 z-[-1] text-center text-white";
+  "w-full rounded-lg p-2 text-center dark:text-white";
 const checkboxStyle: String = "absolute w-full opacity-0 cursor-pointer";
 const inputContainer: String =
   "w-full py-2 flex items-center justify-left relative gap-4 text-white";

@@ -3,14 +3,13 @@ import React from 'react'
 type Props = {}
 
 
-const inputStyle: String = "w-full my-2 rounded-lg p-2 dark:text-black bg-gray-300";
-const labelStyle: String = "w-full rounded-lg p-2 z-[-1] text-center text-white";
-const checkboxStyle: String = "absolute w-full opacity-0 cursor-pointer";
-const inputContainer: String =
-  "w-full py-2 flex items-center justify-left relative gap-4 text-white";
-const borderBottom: String = "border-b border-[#2222] dark:border-[#fff2]";
+const inputStyle: string = "w-full my-2 rounded-lg p-2 dark:text-black bg-gray-100";
+const labelStyle: string = "w-full rounded-lg p-2 text-center text-white dark:text-white cursor-pointer hover:opacity-80";
+const inputContainer: string =
+  "w-full py-2 flex items-center justify-left relative gap-4";
+const borderBottom: string = "border-b border-[#2222] dark:border-[#fff2]";
 
-const data: Array<Number | String> = [
+const data: Array<Number | string> = [
   "dkjvksdjfvlkdfvkjdh",
   "kfvnsfkjnv",
   "fkjvnkfjnkjd",
@@ -42,13 +41,11 @@ export default function ListTasks({}: Props) {
           </div>
           <div className="w-full gap-6 flex flex-row">
             <div className={`${inputContainer}`}>
-              <input type="checkbox" className={`${checkboxStyle}`} />
               <label htmlFor="checkbox" className={`${labelStyle} bg-red-600`}>
                 Pending
               </label>
             </div>
             <div className={`${inputContainer}`}>
-              <input type="checkbox" className={`${checkboxStyle}`} />
               <label
                 htmlFor="checkbox"
                 className={`${labelStyle} bg-green-600`}

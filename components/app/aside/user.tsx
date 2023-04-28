@@ -1,4 +1,4 @@
-import { UserContext } from "@/contexts";
+import { ThemeContext, UserContext } from "@/contexts";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
@@ -10,14 +10,8 @@ const asideUserBtn: string =
 
 export function User({}: Props) {
   const router = useRouter();
-  const {
-    isLoading,
-    sessionSet,
-    currentUser,
-    setIsLoading,
-    setSessionSet,
-    setCurrentUser,
-  }: any = useContext(UserContext);
+  const { currentUser }: any = useContext(UserContext);
+  const { toggleTheme }: any = useContext(ThemeContext);
 
   const Logout = (e: any) => {
     e.preventDefault();
@@ -36,7 +30,11 @@ export function User({}: Props) {
               </b>
             </div>
             <div>
-              {currentUser && currentUser.fullname?.toLocaleString().toUpperCase().split(" ")[0]}
+              {currentUser &&
+                currentUser.fullname
+                  ?.toLocaleString()
+                  .toUpperCase()
+                  .split(" ")[0]}
             </div>
           </div>
           <div className="flex flex-row gap-2">
@@ -47,7 +45,9 @@ export function User({}: Props) {
         </div>
         <div className="w-full py-2 flex gap-2">
           <button className={`${asideUserBtn} w-full`}>Profile</button>
-          <button className={`${asideUserBtn} w-full`}>Light/Dark</button>
+          <button className={`${asideUserBtn} w-full`} onClick={toggleTheme}>
+            Light/Dark
+          </button>
         </div>
       </div>
     </>

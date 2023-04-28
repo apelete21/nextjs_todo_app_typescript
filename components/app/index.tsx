@@ -7,7 +7,7 @@ type Props = {};
 export function App({}: Props) {
   return (
     <>
-      <div className="w-screen h-screen flex flex-row">
+      <div className="w-screen h-screen flex flex-row text-black dark:text-white bg-slate-200 dark:bg-neutral-900">
         <AsideComponent />
         <MainWrapper />
       </div>

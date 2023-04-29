@@ -1,4 +1,4 @@
-import { BackBtn } from "@/components";
+import { BackBtn, Loader } from "@/components";
 import { UserContext } from "@/contexts";
 import { User } from "@/libs";
 import { useIdentify } from "@/utils";
@@ -63,76 +63,85 @@ export default function Login() {
     setIsLoading(false);
 
     if (res.success === false) {
-      return setError(res.data.message);
+      return setError(
+        res.data?.message || "Please try again, or reload the page."
+      );
     } else {
-      setCurrentUser({ user: res.data.user });
-      localStorage.setItem("token", res.data.token);
+      setCurrentUser(res.data?.user);
+      localStorage.setItem("token", res.data?.token);
       setSessionSet(true);
       router.push("/");
       setIsLoading(false);
     }
   };
-  return (
-    <>
-      <div className="w-screen h-screen flex flex-col items-center justify-center">
-        <form
-          className="w-[450px] h-auto text-center flex flex-col items-center p-4 justify-center rounded-2xl bg-gray-300 dark:bg-[#222]"
-          onSubmit={sendLogin}
-        >
-          <BackBtn className={"self-start"} />
-          <h1 className="w-full text-4xl font-bold my-[20px]">Todo App</h1>
-          <h3 className="w-full mb-6 opacity-80">
-            Welcome, enter your credentials
-          </h3>
-
-          <input
-            type="email"
-            placeholder="Email"
-            className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
-              emaileError
-            )}`}
-            value={email}
-            onChange={(e) => handleChange(e, setEmail)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
-              passwordeError
-            )}`}
-            value={password}
-            onChange={(e) => handleChange(e, setPassword)}
-          />
-
-          <Link href="#" className="text-[12px] text-right font-black w-full">
-            Forgot your password ?
-          </Link>
-
-          {error !== "" && (
-            <div
-              className={`flex flex-row w-full text-red-600 px-2 my-2 items-center gap-4 relative cursor-pointer`}
-            >
-              {error}
-            </div>
-          )}
-
-          <input
-            type="submit"
-            value={isLoading ? "Loading..." : "Login"}
-            className={`${inputStyle} ${buttonStyle}`}
-          />
-
-          <span className="text-[12px] mt-4 mb-6">or</span>
-
-          <Link
-            href="/register"
-            type="submit"
-            className={`${inputStyle} ${buttonStyle}`}
+  if (!isLoading)
+    return (
+      <>
+        <div className="w-screen h-screen flex flex-col items-center justify-center">
+          <form
+            className="w-[450px] h-auto text-center flex flex-col items-center p-4 justify-center rounded-2xl bg-gray-300 dark:bg-[#222]"
+            onSubmit={sendLogin}
           >
-            Create an account
-          </Link>
-        </form>
-      </div>
-    </>
-  );
+            <BackBtn className={"self-start"} />
+            <h1 className="w-full text-4xl font-bold my-[20px]">Todo App</h1>
+            <h3 className="w-full mb-6 opacity-80">
+              Welcome, enter your credentials
+            </h3>
+
+            <input
+              type="email"
+              placeholder="Email"
+              className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
+                emaileError
+              )}`}
+              value={email}
+              onChange={(e) => handleChange(e, setEmail)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
+                passwordeError
+              )}`}
+              value={password}
+              onChange={(e) => handleChange(e, setPassword)}
+            />
+
+            <Link href="#" className="text-[12px] text-right font-black w-full">
+              Forgot your password ?
+            </Link>
+
+            {error !== "" && (
+              <div
+                className={`flex flex-row w-full text-red-600 px-2 my-2 items-center gap-4 relative cursor-pointer`}
+              >
+                {error}
+              </div>
+            )}
+
+            <input
+              type="submit"
+              value={isLoading ? "Loading..." : "Login"}
+              className={`${inputStyle} ${buttonStyle}`}
+            />
+
+            <span className="text-[12px] mt-4 mb-6">or</span>
+
+            <Link
+              href="/register"
+              type="submit"
+              className={`${inputStyle} ${buttonStyle}`}
+            >
+              Create an account
+            </Link>
+          </form>
+        </div>
+      </>
+    );
+  if (isLoading)
+    return (
+      <>
+        <Loader />
+      </>
+    );
 }

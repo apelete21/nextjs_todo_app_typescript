@@ -1,8 +1,8 @@
-import { BackBtn } from "@/components";
+import { BackBtn, Loader } from "@/components";
 import { useIdentify } from "@/utils";
 import { User } from "@/libs";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import { UserContext } from "@/contexts";
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ const buttonStyle: String =
 
 type Props = {};
 
-export default function Register({}: Props): JSX.Element {
+export default function Register({}: Props) {
   const {
     isLoading,
     sessionSet,
@@ -42,6 +42,11 @@ export default function Register({}: Props): JSX.Element {
   const handleError = (value: boolean) => {
     if (value === true) return "border-red-500 border";
   };
+
+  // auth login
+  useEffect(() => {
+    if (sessionSet) router.push("/");
+  }, [sessionSet]);
 
   // onchange function with error reset...
   function handleChange(e: any, setItem: any) {
@@ -85,98 +90,107 @@ export default function Register({}: Props): JSX.Element {
     setIsLoading(false);
 
     if (res.success === false) {
-      return setError(res.data.message);
+      return setError(
+        res.data?.message || "Please try again, or reload the page."
+      );
     } else {
-      setCurrentUser({ user: res.data.newUser });
-      localStorage.setItem("token", res.data.token);
+      setCurrentUser(res.data?.user);
+      localStorage.setItem("token", res.data?.token);
       setSessionSet(true);
       router.push("/");
       setIsLoading(false);
     }
   };
 
-  return (
-    <div>
-      <div className="w-screen h-screen flex flex-col items-center justify-center">
-        <form
-          className="w-[450px] h-auto bg text-center flex flex-col items-center p-4 justify-center rounded-2xl bg-gray-300 dark:bg-[#222]"
-          onSubmit={sendRegistration}
-        >
-          <BackBtn className={"self-start"} />
-          <h1 className="w-full text-4xl font-bold my-[20px]">Todo App</h1>
-          <h3 className="w-full mb-6 opacity-80">
-            Welcome, enter your informations
-          </h3>
-
-          <input
-            type="text"
-            placeholder="John Doe"
-            className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
-              fullnameError
-            )}`}
-            value={fullname}
-            onChange={(e) => handleChange(e, setFullname)}
-          />
-          <input
-            type="email"
-            placeholder="johndoe@gmail.com"
-            className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
-              emaileError
-            )}`}
-            value={email}
-            onChange={(e) => handleChange(e, setEmail)}
-          />
-          <input
-            type="password"
-            placeholder="**********"
-            className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
-              passwordeError
-            )}`}
-            value={password}
-            onChange={(e) => handleChange(e, setPassword)}
-          />
-          <input
-            type="password"
-            placeholder="**********"
-            className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
-              passwordAgaineError
-            )}`}
-            value={passwordAgain}
-            onChange={(e) => handleChange(e, setPasswordAgain)}
-          />
-          <label
-            className={`flex flex-row w-full px-2 my-2 items-center gap-4 relative cursor-pointer ${handleError(
-              agrementeError
-            )}`}
+  if (!isLoading)
+    return (
+      <div>
+        <div className="w-screen h-screen flex flex-col items-center justify-center">
+          <form
+            className="w-[450px] h-auto bg text-center flex flex-col items-center p-4 justify-center rounded-2xl bg-gray-300 dark:bg-[#222]"
+            onSubmit={sendRegistration}
           >
+            <BackBtn className={"self-start"} />
+            <h1 className="w-full text-4xl font-bold my-[20px]">Todo App</h1>
+            <h3 className="w-full mb-6 opacity-80">
+              Welcome, enter your informations
+            </h3>
+
             <input
-              type="checkbox"
-              checked={agrement}
-              onChange={(e) => handleChange(e, setAgrement)}
+              type="text"
+              placeholder="John Doe"
+              className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
+                fullnameError
+              )}`}
+              value={fullname}
+              onChange={(e) => handleChange(e, setFullname)}
             />
-            I accept terms of confidentiality & politics
-          </label>
-          {error !== "" && (
-            <div
-              className={`flex flex-row w-full text-red-600 px-2 my-2 items-center gap-4 relative cursor-pointer`}
+            <input
+              type="email"
+              placeholder="johndoe@gmail.com"
+              className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
+                emaileError
+              )}`}
+              value={email}
+              onChange={(e) => handleChange(e, setEmail)}
+            />
+            <input
+              type="password"
+              placeholder="**********"
+              className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
+                passwordeError
+              )}`}
+              value={password}
+              onChange={(e) => handleChange(e, setPassword)}
+            />
+            <input
+              type="password"
+              placeholder="**********"
+              className={`${inputStyle} bg-gray-100 dark:bg-[#5555] ${handleError(
+                passwordAgaineError
+              )}`}
+              value={passwordAgain}
+              onChange={(e) => handleChange(e, setPasswordAgain)}
+            />
+            <label
+              className={`flex flex-row w-full px-2 my-2 items-center gap-4 relative cursor-pointer ${handleError(
+                agrementeError
+              )}`}
             >
-              {error}
-            </div>
-          )}
+              <input
+                type="checkbox"
+                checked={agrement}
+                onChange={(e) => handleChange(e, setAgrement)}
+              />
+              I accept terms of confidentiality & politics
+            </label>
+            {error !== "" && (
+              <div
+                className={`flex flex-row w-full text-red-600 px-2 my-2 items-center gap-4 relative cursor-pointer`}
+              >
+                {error}
+              </div>
+            )}
 
-          <input
-            type="submit"
-            value={isLoading ? "Loading..." : "Create an account"}
-            className={`${inputStyle} ${buttonStyle}`}
-          />
+            <input
+              type="submit"
+              value={isLoading ? "Loading..." : "Create an account"}
+              className={`${inputStyle} ${buttonStyle}`}
+            />
 
-          <span className="text-[12px] my-3">or</span>
+            <span className="text-[12px] my-3">or</span>
 
-          <Link href="/login" className={`${inputStyle} ${buttonStyle}`}>
-            Back to Login
-          </Link>
-        </form>
+            <Link href="/login" className={`${inputStyle} ${buttonStyle}`}>
+              Back to Login
+            </Link>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  if (isLoading)
+    return (
+      <>
+        <Loader />
+      </>
+    );
 }

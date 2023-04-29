@@ -5,21 +5,18 @@ export const useIdentify = async (credentials: User, url: string) => {
     Accept: "*/*",
     "Content-Type": "application/json",
   };
-
   const { fullname, email, password } = credentials;
-
   const bodyContent = JSON.stringify({
     fullname,
     email,
     password,
   });
-
   const response = await fetch(`/api/users/${url}`, {
     method: "POST",
     body: bodyContent,
     headers: headersList,
   });
-
+  if (!response.ok) return new Error();
   const data = await response.json();
   return { data, success: response.ok };
 };
@@ -34,6 +31,7 @@ export async function authenticate(token: any) {
     method: "POST",
     headers: headersList,
   });
+  if (!response.ok) return new Error();
   const data: any = await response.json();
   return { data, success: response.ok };
 }
@@ -48,6 +46,7 @@ export const groupRequests = async (token: any, action: any, method: any) => {
     method: method,
     headers: headersList,
   });
+  if (!response.ok) return new Error();
   const data: any = await response.json();
   return { data, success: response.ok };
 };

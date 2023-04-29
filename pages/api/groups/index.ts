@@ -9,10 +9,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
   const authorization: any = req.headers.authorization;
   const token: any = authorization.split(" ")[1];
-  const { ok } = jwtAuth(token);
+  const { ok, _id } = jwtAuth(token);
   if (!ok) return res.status(401).send({ message: "Authentication failed!" });
   try {
-    const groups = await Group.find();
+    const groups = await Group.find({ author: _id });
     if (!groups)
       return res.status(500).send({ message: " An error occurred!" });
     res.status(200).send({ message: "Success", groups });

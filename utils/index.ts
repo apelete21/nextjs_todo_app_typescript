@@ -53,7 +53,7 @@ export const groupRequests = async (
   const response = await fetch(`/api/groups/${action}`, {
     method: method,
     headers: headersList,
-    body: JSON.stringify(body),
+    body: JSON.stringify(body) || undefined,
   });
   if (!response.ok) return new Error();
   const data: any = await response.json();

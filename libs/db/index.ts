@@ -7,7 +7,7 @@ export const mongoConnect = async () => {
   try {
     const { connection }: any = await mongoose.connect(uri);
     if (connection.readyState === 1) {
-      console.log("db connected")
+      return connection.asPromise();
     }
   } catch (error: any) {
     return Promise.reject(error);

@@ -8,7 +8,7 @@ export default async function (
   next: any
 ) {
   const method = req.method;
-  if (method !== "GET")
+  if (method !== "DELETE")
     return res.status(401).send({ message: `Cannot ${method} at ${req.url}` });
 
   const { ok, _id } = jwtAuth(req, res, next);

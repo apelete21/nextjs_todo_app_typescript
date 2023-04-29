@@ -22,9 +22,9 @@ export function List({}: Props) {
         return setIsLoading(false);
       }
       setData(data?.groups);
-      setIsLoading(false);
+      return setIsLoading(false);
     };
-    getGroups();
+    if (isLoading) getGroups();
   }, [data]);
 
   return (

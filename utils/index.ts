@@ -11,14 +11,17 @@ export const useIdentify = async (credentials: User, url: string) => {
     email,
     password,
   });
-  const response = await fetch(`/api/users/${url}`, {
-    method: "POST",
-    body: bodyContent,
-    headers: headersList,
-  });
-  if (!response.ok) return new Error();
-  const data = await response.json();
-  return { data, success: response.ok };
+  try {
+    const response = await fetch(`/api/users/${url}`, {
+      method: "POST",
+      body: bodyContent,
+      headers: headersList,
+    });
+    const data = await response.json();
+    return { data, success: response.ok };
+  } catch (error) {
+    return { data: null, success: false };
+  }
 };
 
 export async function authenticate(token: any) {

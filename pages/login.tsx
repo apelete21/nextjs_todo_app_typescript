@@ -4,7 +4,7 @@ import { User } from "@/libs";
 import { useIdentify } from "@/utils";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 
 const inputStyle: String = "w-full my-2 rounded-lg p-2";
@@ -14,10 +14,9 @@ const buttonStyle: String =
 export default function Login() {
   const {
     isLoading,
-    sessionSet,
-    currentUser,
     setIsLoading,
     setSessionSet,
+    sessionSet,
     setCurrentUser,
   }: any = useContext(UserContext);
   const router = useRouter();
@@ -42,6 +41,11 @@ export default function Login() {
     setItem(e.target.value);
   }
 
+  // auth login
+  useEffect(() => {
+    if (sessionSet) router.push("/");
+  }, [sessionSet]);
+
   // register function
   const sendLogin = async (e: any) => {
     e.preventDefault();
@@ -55,13 +59,13 @@ export default function Login() {
     setIsLoading(true);
     const user: User = { fullname: null, email, password };
 
-    const res = await useIdentify(user, "login");
+    const res: any = await useIdentify(user, "login");
     setIsLoading(false);
 
     if (res.success === false) {
       return setError(res.data.message);
     } else {
-      setCurrentUser({ user: res.data.newUser });
+      setCurrentUser({ user: res.data.user });
       localStorage.setItem("token", res.data.token);
       setSessionSet(true);
       router.push("/");
@@ -71,7 +75,10 @@ export default function Login() {
   return (
     <>
       <div className="w-screen h-screen flex flex-col items-center justify-center">
-        <form className="w-[450px] h-auto text-center flex flex-col items-center p-4 justify-center rounded-2xl bg-gray-300 dark:bg-[#222]" onSubmit={sendLogin}>
+        <form
+          className="w-[450px] h-auto text-center flex flex-col items-center p-4 justify-center rounded-2xl bg-gray-300 dark:bg-[#222]"
+          onSubmit={sendLogin}
+        >
           <BackBtn className={"self-start"} />
           <h1 className="w-full text-4xl font-bold my-[20px]">Todo App</h1>
           <h3 className="w-full mb-6 opacity-80">

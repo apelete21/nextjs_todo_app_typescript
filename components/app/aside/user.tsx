@@ -1,7 +1,7 @@
 import { ThemeContext, UserContext } from "@/contexts";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
+import UserCircleIcon from "@heroicons/react/24/solid/UserCircleIcon";
 
 type Props = {};
 
@@ -24,10 +24,8 @@ export function User({}: Props) {
       <div className="w-full h-fit flex-1 px-2 py-1 border-t-4 border-[#2222] dark:border-[#fff2]">
         <div className="flex flex-row justify-between items-center py-2">
           <div className="flex flex-row gap-4 items-center">
-            <div className="w-[30px] h-[30px] bg-white rounded-full flex items-center justify-center text-center">
-              <b className="text-white">
-                <img src="/user.png" alt="" />
-              </b>
+            <div className="w-[30px] h-[30px] bg-none rounded-full flex items-center justify-center text-center">
+              <UserCircleIcon />
             </div>
             <div>
               {currentUser &&

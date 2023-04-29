@@ -1,4 +1,6 @@
 import React from 'react'
+import PencilIcon from "@heroicons/react/20/solid/PencilIcon";
+import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
 type Props = {}
 
@@ -71,12 +73,12 @@ export default function ListTasks({}: Props) {
                   <div className="py-2 opacity-50 w-full flex-1 overflow-x-scroll">
                     {element}
                   </div>
-                  <div className="flex flex-row gap-2">
-                    <button className="p-1 opacity-20 hover:opacity-60 cursor-pointer">
-                      E
+                  <div className="flex flex-row gap-2 text-black dark:text-white">
+                    <button className="p-1 opacity-40 hover:opacity-100 cursor-pointer">
+                      <PencilIcon width={15} />
                     </button>
-                    <button className="p-1 opacity-20 hover:opacity-60 cursor-pointer">
-                      D
+                    <button className="p-1 opacity-40 hover:opacity-100 cursor-pointer">
+                      <TrashIcon width={15} />
                     </button>
                   </div>
                 </div>

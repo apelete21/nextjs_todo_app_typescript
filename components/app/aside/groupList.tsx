@@ -18,14 +18,14 @@ export function List({}: Props) {
       }
       setIsLoading(true);
       const { data, success }: any = await groupRequests(token, "", "GET");
-      if (success) {
-        setData(data?.groups);
-        setIsLoading(false);
-        return;
+      if (!success) {
+        return setIsLoading(false);
       }
+      setData(data?.groups);
+      setIsLoading(false);
     };
     getGroups();
-  }, [isLoading]);
+  }, [data]);
 
   return (
     <>

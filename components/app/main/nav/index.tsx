@@ -9,7 +9,7 @@ const asideUserBtn: string =
 
 export function Nav({}: any) {
   const [newGroup, setNewGoup] = useState<boolean>(false);
-  const { groupLoading, setGroupLoading } = useContext(ItemsContext);
+  const { groupLoading, setGroupLoading }: any = useContext(ItemsContext);
   const [result, setResult] = useState<string | null>(null);
 
   const groupTitle = useRef<any>();

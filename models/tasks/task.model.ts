@@ -1,6 +1,7 @@
-import { Schema, model, models, now } from "mongoose";
+import mongoose from "mongoose";
+import { now } from "mongoose";
 
-const TaskSchema = new Schema(
+const TaskSchema = new mongoose.Schema(
   {
     content: {
       type: String,
@@ -35,4 +36,4 @@ const TaskSchema = new Schema(
   }
 );
 
-export const Task = models.Task || model("tasks", TaskSchema);
+export const Task = mongoose.models.Task || mongoose.model("tasks", TaskSchema);

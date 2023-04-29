@@ -10,9 +10,9 @@ type Props = {};
 const borderBottom: String = "border-b border-[#2222] dark:border-[#fff2]";
 
 export function List({}: Props) {
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { groupLoading } = useContext(ItemsContext);
+  const { groupLoading }: any = useContext(ItemsContext);
 
   useEffect(() => {
     const getGroups = async () => {
@@ -31,7 +31,7 @@ export function List({}: Props) {
       if (!success) {
         return setIsLoading(false);
       }
-      setData(data?.groups);
+      setData(data.groups);
       return setIsLoading(false);
     };
     if (isLoading) getGroups();

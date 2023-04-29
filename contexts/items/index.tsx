@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-export const ItemsContext = createContext<any>({});
+export const ItemsContext = createContext({});
 
 export const ItemsContextProvider = ({ children }: any) => {
   const [groupLoading, setGroupLoading] = useState<boolean>();

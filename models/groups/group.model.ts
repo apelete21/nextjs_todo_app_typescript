@@ -1,6 +1,6 @@
-import { Schema, model, models } from "mongoose";
+import mongoose from "mongoose";
 
-const GroupSchema = new Schema(
+const GroupSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -16,4 +16,5 @@ const GroupSchema = new Schema(
   }
 );
 
-export const Group = models.Group || model("groups", GroupSchema);
+export const Group =
+  mongoose.models.Group || mongoose.model("groups", GroupSchema);

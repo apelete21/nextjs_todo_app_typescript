@@ -8,16 +8,16 @@ export const ThemeContextProvider = ({ children }: any) => {
   useEffect(() => {
     let current: any = localStorage.getItem("theme");
     if (
-      !current &&
-      current === "light" ||
-      !window.matchMedia("(prefers-color-scheme: dark)").matches
+      (!current &&
+      !window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+      current === "light"
     ) {
       setTheme("light");
       current = "light";
       document.documentElement.classList.remove("dark");
     } else if (
-      !current &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches ||
+      (!current &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches) ||
       current === "dark"
     ) {
       setTheme("dark");

@@ -37,3 +37,17 @@ export async function authenticate(token: any) {
   const data: any = await response.json();
   return { data, success: response.ok };
 }
+
+export const groupRequests = async (token: any, action: any, method: any) => {
+  const headersList = {
+    Accept: "*/*",
+    "Content-Type": "application/json",
+    authorization: `Bearer ${token}`,
+  };
+  const response = await fetch(`/api/groups/${action}`, {
+    method: method,
+    headers: headersList,
+  });
+  const data: any = await response.json();
+  return { data, success: response.ok };
+};

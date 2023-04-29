@@ -11,8 +11,10 @@ export default async function (
   if (method !== "POST")
     return res.status(401).send({ message: `Cannot ${method} at ${req.url}` });
 
-  const { ok, _id } = jwtAuth(req, res, next);
-  if (!ok && !_id)
+  const authorization: any = req.headers.authorization;
+  const token: any = authorization.split(" ")[1];
+  const { ok , _id} = jwtAuth(token);
+  if (!ok)
     return res.status(401).send({ message: "Authentication failed!" });
 
   const { title } = req.body;

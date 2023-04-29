@@ -1,20 +1,38 @@
-import React from 'react'
+import { groupRequests } from "@/utils";
+import React, { useEffect, useState } from "react";
 
-type Props = {}
+type Props = {};
 
 const borderBottom: String = "border-b border-[#2222] dark:border-[#fff2]";
 
-const data: Array<Number | String> = [
-  "dkjvksdjfvlkdfvkjdh",
-  "kfvnsfkjnv",
-  "fkjvnkfjnkjd",
-];
-
 export function List({}: Props) {
+  const [data, setData] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getGroups = async () => {
+      const token: any = localStorage.getItem("token");
+      if (!token) {
+        window.alert("Please login!");
+        return setIsLoading(false);
+      }
+      setIsLoading(true);
+      const { data, success }: any = await groupRequests(token, "", "GET");
+      if (success) {
+        setData(data?.groups);
+        setIsLoading(false);
+        return;
+      }
+    };
+    getGroups();
+  }, [isLoading]);
+
   return (
     <>
-      {" "}
       <ul className="w-full h-full overflow-scroll p-2">
+        {data?.length === 0 && (
+          <div className="text-center my-2">No groups created</div>
+        )}
         {data?.map((element: any, index: number) => {
           return (
             <div

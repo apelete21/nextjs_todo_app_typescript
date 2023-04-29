@@ -19,7 +19,7 @@ export function List({}: Props) {
         return setIsLoading(false);
       }
       setIsLoading(true);
-      const { data, success }: any = await groupRequests(token, "", "GET");
+      const { data, success }: any = await groupRequests(token, "", "GET", null);
       if (!success) {
         return setIsLoading(false);
       }

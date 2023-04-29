@@ -39,7 +39,12 @@ export async function authenticate(token: any) {
   return { data, success: response.ok };
 }
 
-export const groupRequests = async (token: any, action: any, method: any) => {
+export const groupRequests = async (
+  token: any,
+  action: any,
+  method: any,
+  body: any | null
+) => {
   const headersList = {
     Accept: "*/*",
     "Content-Type": "application/json",
@@ -48,6 +53,7 @@ export const groupRequests = async (token: any, action: any, method: any) => {
   const response = await fetch(`/api/groups/${action}`, {
     method: method,
     headers: headersList,
+    body: JSON.stringify(body),
   });
   if (!response.ok) return new Error();
   const data: any = await response.json();

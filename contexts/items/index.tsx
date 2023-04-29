@@ -3,9 +3,9 @@ import { createContext, useState } from "react";
 export const ItemsContext = createContext<any>({});
 
 export const ItemsContextProvider = ({ children }: any) => {
-  const [groupLoading, setGroupLoading] = useState<any>();
+  const [groupLoading, setGroupLoading] = useState<boolean>();
   const [selectedGroup, setSelectedGroup] = useState<any>();
-  const [tasksLoading, setTasksLoading] = useState<any>();
+  const [tasksLoading, setTasksLoading] = useState<boolean>();
   const [selectedTask, setSelectedTask] = useState<any>();
   return (
     <>

@@ -15,7 +15,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <Head>
             <title>Todo App</title>
           </Head>
-          <Component {...pageProps} />
+          <div className="text-black dark:text-white bg-white dark:bg-neutral-950">
+            <Component {...pageProps} />
+          </div>
         </ItemsContextProvider>
       </UserContextProvider>
     </ThemeContextProvider>

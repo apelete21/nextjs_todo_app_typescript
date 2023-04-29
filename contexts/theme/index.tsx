@@ -9,13 +9,14 @@ export const ThemeContextProvider = ({ children }: any) => {
     let current: any = localStorage.getItem("theme");
     if (
       !current &&
+      current === "light" ||
       !window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
       setTheme("light");
       current = "light";
       document.documentElement.classList.remove("dark");
-    }
-    if (
+    } else if (
+      !current &&
       window.matchMedia("(prefers-color-scheme: dark)").matches ||
       current === "dark"
     ) {
@@ -24,15 +25,14 @@ export const ThemeContextProvider = ({ children }: any) => {
       document.documentElement.classList.add("dark");
     }
     localStorage.setItem("theme", current);
-  }, [theme]);
+  }, []);
 
   const toggleTheme = () => {
-    if (theme !== "dark") {
+    if (theme === "light") {
       setTheme("dark");
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
-    }
-    if (theme !== "light") {
+    } else if (theme === "dark") {
       setTheme("light");
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");

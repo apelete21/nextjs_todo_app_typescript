@@ -41,6 +41,11 @@ export default function ListTasks({}: Props) {
           </div>
           <div className="w-full gap-6 flex flex-row">
             <div className={`${inputContainer}`}>
+              <label htmlFor="checkbox" className={`${labelStyle} bg-yellow-600`}>
+                All
+              </label>
+            </div>
+            <div className={`${inputContainer}`}>
               <label htmlFor="checkbox" className={`${labelStyle} bg-red-600`}>
                 Pending
               </label>

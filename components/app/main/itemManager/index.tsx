@@ -29,11 +29,8 @@ export default function ItemManager({}: Props) {
             placeholder="Description..."
           ></textarea>
           <div className="w-full flex items-center justify-left gap-4">
-            <div className={`${inputContainer}`}>
-              <input type="checkbox" className={`${checkboxStyle}`} />
-              <label htmlFor="checkbox" className={`${labelStyle} text-black`}>
+            <div className={""}>
                 Status:
-              </label>
             </div>
             <div className={`${inputContainer}`}>
               <input type="checkbox" className={`${checkboxStyle}`} />
@@ -52,11 +49,8 @@ export default function ItemManager({}: Props) {
             </div>
           </div>
           <div className="w-full flex items-center justify-left gap-4">
-            <div className={`${inputContainer}`}>
-              <input type="checkbox" className={`${checkboxStyle}`} />
-              <label htmlFor="checkbox" className={`${labelStyle} text-black`}>
+            <div className={""}>
                 Priority:
-              </label>
             </div>
             <div className={`${inputContainer}`}>
               <input type="checkbox" className={`${checkboxStyle}`} />

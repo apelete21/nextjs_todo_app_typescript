@@ -23,9 +23,10 @@ export function Nav({}: any) {
       return setGroupLoading(false);
     }
     setGroupLoading(true);
-    const { success }: any = await groupRequests(token, "create", "POST", {
+    const { data, success }: any = await groupRequests(token, "create", "POST", {
       title,
     });
+    console.log(data)
     if (!success) {
       setResult("error, not created!");
       return setGroupLoading(false);

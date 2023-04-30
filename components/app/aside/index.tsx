@@ -1,6 +1,6 @@
 import React from "react";
 import { Search } from "./search";
-import { List } from "./groupList";
+import { List } from "./groupLists";
 import { User } from "./user";
 
 type Props = {};

@@ -24,7 +24,7 @@ export default async function (
   if (!id) return res.status(401).send({ message: "No group specified!" });
 
   try {
-    const updatedGroup = await Group.findOneAndUpdate({ _id: id, title });
+    const updatedGroup = await Group.findOneAndUpdate({ _id: id }, { title });
     if (!updatedGroup)
       return res.status(500).send({ message: " An error occurred!" });
     res.status(200).send({ message: "Success", updatedGroup });

@@ -55,7 +55,7 @@ export function Nav({}: any) {
             >
               {!newGroup ? "New group" : "Close"}
             </button>
-            <button className={`${asideUserBtn} w-full`}>Delete group</button>
+            {/* <button className={`${asideUserBtn} w-full`}>Delete group</button> */}
           </div>
         </div>
         <form

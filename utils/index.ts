@@ -40,9 +40,9 @@ export async function authenticate(token: any) {
 }
 
 export const groupRequests = async (
-  token: any,
-  action: any,
-  method: any,
+  token: string,
+  action: string,
+  method: string,
   body: any | null
 ) => {
   const headersList = {

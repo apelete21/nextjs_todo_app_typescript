@@ -1,15 +1,45 @@
 import { ItemsContext } from "@/contexts";
 import { groupRequests } from "@/utils";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import PencilIcon from "@heroicons/react/20/solid/PencilIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 const borderBottom: String = "border-b border-[#2222] dark:border-[#fff2]";
+const inputStyle: String =
+  "w-full my-2 rounded-lg p-2 dark:text-black bg-gray-300";
 
 export function List() {
   const [data, setData] = useState([]);
+  const [update, setUpdate] = useState<boolean>(false);
+  const [setselectToUpdate, setSelectToUpdate] = useState<string>("");
+  const newTitle = useRef<any>();
   const { groupLoading, setGroupLoading }: any = useContext(ItemsContext);
+
+  const handleEdit = (selected: string) => {
+    setUpdate(true);
+    setSelectToUpdate(selected);
+  };
+
+  const updateItem = async (id: string, title: string) => {
+    const token: any = localStorage.getItem("token");
+    if (!token) {
+      window.alert("Please login!");
+    }
+    const { success }: any = await groupRequests(token, `update/${id}`, "PUT", {
+      title,
+    });
+    if (!success) {
+      setUpdate(true);
+      setSelectToUpdate("");
+      return;
+    }
+    setUpdate(true);
+    setSelectToUpdate("");
+    setGroupLoading(true);
+    return;
+  };
 
   const deleteItem = async (id: any) => {
     const token: any = localStorage.getItem("token");
@@ -77,22 +107,51 @@ export function List() {
               return (
                 <div
                   key={index}
-                  className={`${borderBottom} p-2 flex flex-row justify-between items-center cursor-pointer hover:bg-[#eee5] dark:hover:bg-[#2224] dark:focus:hover:bg-[#3334]`}
+                  className={`${borderBottom} py-2 flex flex-col justify-between items-center cursor-pointer hover:bg-[#eee5] dark:hover:bg-[#2224] dark:focus:hover:bg-[#3334]`}
                 >
-                  <div className="py-2 opacity-50 w-full flex-1 overflow-x-scroll">
-                    {element.title}
+                  <div className="w-full flex flex-row justify-between">
+                    <div className="py-2 opacity-50 w-full flex-1 overflow-x-scroll first-letter:capitalize">
+                      {element.title}
+                    </div>
+                    <div className="flex flex-row gap-2 text-black dark:text-white">
+                      {update && setselectToUpdate === element._id ? (
+                        <button
+                          className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                          onClick={() =>
+                            updateItem(element._id, newTitle.current.value)
+                          }
+                        >
+                          <CheckIcon width={20} />
+                        </button>
+                      ) : (
+                        <>
+                          <button
+                            className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                            onClick={() => handleEdit(element._id)}
+                          >
+                            <PencilIcon width={15} />
+                          </button>
+                          <button
+                            className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                            onClick={() => deleteItem(element._id)}
+                          >
+                            <TrashIcon width={15} />
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex flex-row gap-2 text-black dark:text-white">
-                    <button className="p-1 opacity-40 hover:opacity-100 cursor-pointer">
-                      <PencilIcon width={15} />
-                    </button>
-                    <button
-                      className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
-                      onClick={() => deleteItem(element._id)}
-                    >
-                      <TrashIcon width={15} />
-                    </button>
-                  </div>
+                  {update && setselectToUpdate === element._id && (
+                    <div className="w-full flex flex-row justify-between">
+                      <input
+                        type="text"
+                        placeholder="Search"
+                        className={`${inputStyle} bg-white`}
+                        defaultValue={element?.title}
+                        ref={newTitle}
+                      />
+                    </div>
+                  )}
                 </div>
               );
             })}

@@ -5,6 +5,7 @@ import PencilIcon from "@heroicons/react/20/solid/PencilIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import PlusIcon from "@heroicons/react/20/solid/PlusIcon";
 
 const borderBottom: String = "border-b border-[#2222] dark:border-[#fff2]";
 const inputStyle: String =
@@ -17,8 +18,8 @@ export function List() {
   const newTitle = useRef<any>();
   const { groupLoading, setGroupLoading }: any = useContext(ItemsContext);
 
-  const handleEdit = (selected: string) => {
-    setUpdate(true);
+  const handleEdit = (selected: string, value: boolean) => {
+    setUpdate(value);
     setSelectToUpdate(selected);
   };
 
@@ -115,19 +116,30 @@ export function List() {
                     </div>
                     <div className="flex flex-row gap-2 text-black dark:text-white">
                       {update && setselectToUpdate === element._id ? (
-                        <button
-                          className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
-                          onClick={() =>
-                            updateItem(element._id, newTitle.current.value)
-                          }
-                        >
-                          <CheckIcon width={20} />
-                        </button>
+                        <>
+                          <button
+                            className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                            onClick={() =>
+                              updateItem(element._id, newTitle.current.value)
+                            }
+                          >
+                            <CheckIcon width={20} />
+                          </button>
+                          <button
+                            className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                            onClick={() => handleEdit("", false)}
+                          >
+                            <PlusIcon
+                              width={20}
+                              className="rotate-45 origin-center"
+                            />
+                          </button>
+                        </>
                       ) : (
                         <>
                           <button
                             className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
-                            onClick={() => handleEdit(element._id)}
+                            onClick={() => handleEdit(element._id, true)}
                           >
                             <PencilIcon width={15} />
                           </button>

@@ -9,7 +9,8 @@ const asideUserBtn: string =
 
 export function Nav({}: any) {
   const [newGroup, setNewGoup] = useState<boolean>(false);
-  const { groupLoading, setGroupLoading }: any = useContext(ItemsContext);
+  const { groupLoading, setGroupLoading, selectedGroup }: any =
+    useContext(ItemsContext);
   const [result, setResult] = useState<string | null>(null);
 
   const groupTitle = useRef<any>();
@@ -46,7 +47,7 @@ export function Nav({}: any) {
       <nav className="w-full h-fit grid relative">
         <div className="w-full h-fit flex flex-row justify-between items-center">
           <div className="">
-            <b>Selected task group</b>
+            <b>{selectedGroup ? selectedGroup.title : "No group selected!"}</b>
           </div>
           <div className="flex gap-2 w-1/3">
             <button

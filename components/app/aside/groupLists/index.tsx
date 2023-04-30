@@ -16,7 +16,8 @@ export function List() {
   const [update, setUpdate] = useState<boolean>(false);
   const [setselectToUpdate, setSelectToUpdate] = useState<string>("");
   const newTitle = useRef<any>();
-  const { groupLoading, setGroupLoading }: any = useContext(ItemsContext);
+  const { groupLoading, setGroupLoading, setSelectedGroup }: any =
+    useContext(ItemsContext);
 
   const handleEdit = (selected: string, value: boolean) => {
     setUpdate(value);
@@ -108,6 +109,7 @@ export function List() {
               return (
                 <div
                   key={index}
+                  onClick={() => setSelectedGroup(element)}
                   className={`${borderBottom} py-2 flex flex-col justify-between items-center cursor-pointer hover:bg-[#eee5] dark:hover:bg-[#2224] dark:focus:hover:bg-[#3334]`}
                 >
                   <div className="w-full flex flex-row justify-between">

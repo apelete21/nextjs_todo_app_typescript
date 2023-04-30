@@ -19,12 +19,12 @@ export default async function (
 
   const { id } = req.query;
 
-  if (!id) return res.status(401).send({ message: "No group specified" });
+  if (!id || id === undefined) return res.status(401).send({ message: "No group specified" });
 
   try {
     const deleted = await Group.deleteOne({ _id: id });
     if (!deleted)
-      return res.status(500).send({ message: " An error occurred!" });
+      return res.status(500).send({ message: "An error occurred!" });
     res.status(200).send({ message: "Success", deleted });
   } catch (error: any) {
     res.status(401).send({ message: error.message });

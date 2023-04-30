@@ -9,7 +9,26 @@ const borderBottom: String = "border-b border-[#2222] dark:border-[#fff2]";
 
 export function List() {
   const [data, setData] = useState([]);
-  const { groupLoading }: any = useContext(ItemsContext);
+  const { groupLoading, setGroupLoading }: any = useContext(ItemsContext);
+
+  const deleteItem = async (id: any) => {
+    const token: any = localStorage.getItem("token");
+    console.log(id);
+    if (!token) {
+      window.alert("Please login!");
+    }
+    const { success }: any = await groupRequests(
+      token,
+      `delete/${id}`,
+      "DELETE",
+      undefined
+    );
+    if (!success) {
+      return;
+    }
+    setGroupLoading(true);
+    return;
+  };
 
   useEffect(() => {
     const getGroups = async () => {
@@ -24,10 +43,10 @@ export function List() {
         undefined
       );
       if (!success) {
-        return;
+        return setGroupLoading(false);
       }
       setData(data?.groups);
-      return;
+      return setGroupLoading(false);
     };
     getGroups();
   }, [groupLoading]);
@@ -67,7 +86,10 @@ export function List() {
                     <button className="p-1 opacity-40 hover:opacity-100 cursor-pointer">
                       <PencilIcon width={15} />
                     </button>
-                    <button className="p-1 opacity-40 hover:opacity-100 cursor-pointer">
+                    <button
+                      className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                      onClick={() => deleteItem(element._id)}
+                    >
                       <TrashIcon width={15} />
                     </button>
                   </div>

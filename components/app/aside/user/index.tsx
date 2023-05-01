@@ -2,6 +2,7 @@ import { ThemeContext, UserContext } from "@/contexts";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import UserCircleIcon from "@heroicons/react/24/solid/UserCircleIcon";
+import { ThemeChangerBtn } from "@/components/themeChangerBtn";
 
 type Props = {};
 
@@ -35,17 +36,15 @@ export function User({}: Props) {
                   .split(" ")[0]}
             </div>
           </div>
-          <div className="flex flex-row gap-2">
-            <button className={`${asideUserBtn}`} onClick={Logout}>
-              Logout
-            </button>
-          </div>
+          {/* <div className="flex flex-row gap-2"> */}
+            <ThemeChangerBtn className={`mb-0`} />
+          {/* </div> */}
         </div>
         <div className="w-full py-2 flex gap-2">
-          <button className={`${asideUserBtn} w-full`}>Profile</button>
-          <button className={`${asideUserBtn} w-full`} onClick={toggleTheme}>
-            Light/Dark
+          <button className={`${asideUserBtn} w-full`} onClick={Logout}>
+            Logout
           </button>
+          <button className={`${asideUserBtn} w-full`}>Profile</button>
         </div>
       </div>
     </>

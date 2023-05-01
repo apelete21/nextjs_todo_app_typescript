@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeChangerBtn } from "@/components";
 
 const inputStyle: String = "w-full my-2 rounded-lg p-2";
 const buttonStyle: String =
@@ -13,6 +14,7 @@ export function Welcome(): JSX.Element {
           <h3 className="w-full mb-6 opacity-80">
             Welcome, select your action
           </h3>
+          <ThemeChangerBtn className={"self-center mb-5"} />
           <div className="flex flex-row w-full items-center gap-2">
             <Link href="/login" className={`${inputStyle} ${buttonStyle}`}>
               Login

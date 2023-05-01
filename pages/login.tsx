@@ -1,4 +1,4 @@
-import { BackBtn, Loader } from "@/components";
+import { BackBtn, Loader, ThemeChangerBtn } from "@/components";
 import { UserContext } from "@/contexts";
 import { User } from "@/libs";
 import { useIdentify } from "@/utils";
@@ -83,6 +83,7 @@ export default function Login() {
             onSubmit={sendLogin}
           >
             <BackBtn className={"self-start"} />
+            <ThemeChangerBtn className={"self-end"} />
             <h1 className="w-full text-4xl font-bold my-[20px]">Todo App</h1>
             <h3 className="w-full mb-6 opacity-80">
               Welcome, enter your credentials

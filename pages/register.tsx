@@ -1,4 +1,4 @@
-import { BackBtn, Loader } from "@/components";
+import { BackBtn, Loader, ThemeChangerBtn } from "@/components";
 import { useIdentify } from "@/utils";
 import { User } from "@/libs";
 import Link from "next/link";
@@ -111,6 +111,7 @@ export default function Register({}: Props) {
             onSubmit={sendRegistration}
           >
             <BackBtn className={"self-start"} />
+            <ThemeChangerBtn className={"self-end"} />
             <h1 className="w-full text-4xl font-bold my-[20px]">Todo App</h1>
             <h3 className="w-full mb-6 opacity-80">
               Welcome, enter your informations

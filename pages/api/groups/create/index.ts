@@ -24,7 +24,7 @@ export default async function (
   try {
     const newGroup = await Group.create({ author: _id, title });
     if (!newGroup)
-      return res.status(500).send({ message: " An error occurred!" });
+      return res.status(500).send({ message: "An error occurred!" });
     res.status(200).send({ message: "Success", newGroup });
   } catch (error: any) {
     res.status(401).send({ message: error.message });

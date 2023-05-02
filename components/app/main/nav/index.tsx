@@ -1,6 +1,8 @@
 import { ItemsContext } from "@/contexts";
 import { groupRequests } from "@/utils";
 import React, { useContext, useEffect, useRef, useState } from "react";
+import DocumentPlusIcon from "@heroicons/react/20/solid/DocumentPlusIcon";
+import PlusIcon from "@heroicons/react/20/solid/PlusIcon";
 
 const inputStyle: string =
   "w-full my-2 rounded-lg p-2 dark:text-black bg-gray-300";
@@ -49,14 +51,17 @@ export function Nav({}: any) {
           <div className="">
             <b>{selectedGroup ? selectedGroup.title : "No group selected!"}</b>
           </div>
-          <div className="flex gap-2 w-1/3">
+          <div className="flex gap-2 w-fit">
             <button
-              className={`${asideUserBtn} w-full`}
+              className={`${asideUserBtn} w-fit`}
               onClick={() => setNewGoup(!newGroup)}
             >
-              {!newGroup ? "New group" : "Close"}
+              {!newGroup ? (
+                <DocumentPlusIcon width={20} />
+              ) : (
+                <PlusIcon width={20} style={{ transform: "rotate(45deg)" }} />
+              )}
             </button>
-            {/* <button className={`${asideUserBtn} w-full`}>Delete group</button> */}
           </div>
         </div>
         <form

@@ -59,7 +59,7 @@ export default function ItemManager({}: Props) {
 
   const formReset = () => {
     setContent(null);
-    setDescription(null);
+    setDescription("");
     setDate(null);
     setPriority(null);
     setStatus(undefined);
@@ -109,14 +109,14 @@ export default function ItemManager({}: Props) {
             type="text"
             className={`${inputStyle}`}
             placeholder="Content..."
-            defaultValue={content}
+            value={content}
             onChange={(e) => handleChange(e, setContent)}
           />
           <textarea
             className={`${inputStyle} max-h-30 resize-none`}
             rows={6}
             placeholder="Description..."
-            defaultValue={description}
+            value={description}
             onChange={(e) => handleChange(e, setDescription)}
           ></textarea>
           <div className="w-full flex items-center justify-left gap-4">

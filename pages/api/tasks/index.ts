@@ -11,7 +11,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const method = req.method;
-  if (method !== "GET")
+  if (method !== "POST")
     return res.status(401).send({
       message: `Cannot ${method} at ${req.url}`,
       tasks: undefined,

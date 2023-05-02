@@ -24,7 +24,7 @@ const TaskSchema = new mongoose.Schema(
     delay: {
       type: Date,
       required: false,
-      default: `${now().getDate()}/${now().getMonth()}/${now().getFullYear()}`,
+      default: now(),
     },
     group: {
       type: String,

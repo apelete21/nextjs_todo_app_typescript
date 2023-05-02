@@ -64,6 +64,7 @@ export default function ItemManager({}: Props) {
     setPriority(null);
     setStatus(undefined);
     document.forms[1].reset()
+    setTaskEdit(null)
   };
 
   useEffect(() => {

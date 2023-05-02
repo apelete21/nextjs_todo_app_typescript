@@ -35,6 +35,7 @@ export default function ListTasks() {
       window.alert("Error, not deleted!");
       return;
     }
+    setTaskEdit(null);
     setTasksLoading(true);
     return;
   };

@@ -198,7 +198,7 @@ export default function ItemManager({}: Props) {
               Update
             </button>
           )}
-          <button className={`${asideUserBtn} w-1/2 m-auto`}>Cancel</button>
+          <button className={`${asideUserBtn} w-1/2 m-auto`} onClick={formReset}>Cancel</button>
         </div>
       </form>
     </>

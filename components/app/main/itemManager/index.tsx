@@ -57,6 +57,7 @@ export default function ItemManager({}: Props) {
     });
     if (!success) return window.alert("Something gone wrong");
     setTasksLoading(true);
+    document.forms[0].reset()
   };
 
   return (

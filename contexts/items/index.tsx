@@ -7,18 +7,21 @@ export const ItemsContextProvider = ({ children }: any) => {
   const [selectedGroup, setSelectedGroup] = useState<any>();
   const [tasksLoading, setTasksLoading] = useState<boolean>();
   const [selectedTask, setSelectedTask] = useState<any>();
+  const [taskEdit, setTaskEdit] = useState<any>(null);
   return (
     <>
       <ItemsContext.Provider
         value={{
+          taskEdit,
           groupLoading,
           tasksLoading,
           selectedGroup,
           selectedTask,
-          setGroupLoading,
-          setSelectedGroup,
+          setTaskEdit,
           setTasksLoading,
+          setGroupLoading,
           setSelectedTask,
+          setSelectedGroup,
         }}
       >
         {children}

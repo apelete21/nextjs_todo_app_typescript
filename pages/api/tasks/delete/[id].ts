@@ -1,4 +1,4 @@
-import { Group } from "@/models";
+import { Task } from "@/models";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function (
@@ -13,10 +13,10 @@ export default async function (
   const { id } = req.query;
 
   if (!id || id === undefined)
-    return res.status(401).send({ message: "No group specified" });
+    return res.status(401).send({ message: "No task specified" });
 
   try {
-    const deleted = await Group.deleteOne({ _id: id });
+    const deleted = await Task.deleteOne({ _id: id });
     if (!deleted)
       return res.status(500).send({ message: "An error occurred!" });
     res.status(200).send({ message: "Success", deleted });

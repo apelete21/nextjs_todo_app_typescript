@@ -1,7 +1,7 @@
 import { ItemsContext } from "@/contexts";
 import { taskRequests } from "@/utils";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 type Props = {};
 
@@ -24,21 +24,18 @@ function CheckBtn(): JSX.Element {
 export default function ItemManager({}: Props) {
   const [content, setContent] = useState<any>();
   const [description, setDescription] = useState<any>();
-  const [status, setStatus] = useState<any>();
+  const [status, setStatus] = useState<boolean | undefined>();
   const [priority, setPriority] = useState<any>();
   const [date, setDate] = useState<any>();
   const [error, setError] = useState<null | boolean>();
 
-  const {
-    groupLoading,
-    setGroupLoading,
-    setSelectedGroup,
-    selectedGroup,
-    tasksLoading,
-    setTasksLoading,
-  }: any = useContext(ItemsContext);
+  const { selectedGroup, setTasksLoading, taskEdit, setTaskEdit }: any =
+    useContext(ItemsContext);
 
   const handleChange = (e: any, setItem: any) => {
+    if (setItem === setStatus) {
+      return setStatus(!status);
+    }
     setItem(e.target.value);
   };
 
@@ -51,13 +48,53 @@ export default function ItemManager({}: Props) {
       group: selectedGroup?._id,
       content,
       description,
-      status: status === "PENDING" ? false : true,
+      status,
       priority,
       date,
     });
     if (!success) return window.alert("Something gone wrong");
+    formReset();
     setTasksLoading(true);
-    document.forms[0].reset()
+  };
+
+  const formReset = () => {
+    setContent(null);
+    setDescription(null);
+    setDate(null);
+    setPriority(null);
+    setStatus(undefined);
+    document.forms[1].reset()
+  };
+
+  useEffect(() => {
+    if (taskEdit !== null) {
+      setContent(taskEdit?.content);
+      setDescription(taskEdit?.description);
+      setDate(taskEdit?.date);
+      setPriority(taskEdit?.priority);
+      setStatus(taskEdit?.status);
+      return;
+    }
+    formReset();
+  }, [taskEdit]);
+
+  const updateTask = async (e: any) => {
+    e.preventDefault();
+    const { success }: any = await taskRequests(
+      `update/${taskEdit?._id}`,
+      "PUT",
+      {
+        content,
+        description,
+        status,
+        priority,
+        date,
+      }
+    );
+    if (!success) return window.alert("Something gone wrong");
+    formReset();
+    setTaskEdit(null);
+    setTasksLoading(true);
   };
 
   return (
@@ -86,22 +123,20 @@ export default function ItemManager({}: Props) {
             <div className={""}>Status:</div>
             <div className={`${inputContainer}`}>
               <button
-                value="PENDING"
                 className={`${labelStyle} gap-2 bg-red-600 flex flex-row items-center justify-center`}
                 onClick={(e) => handleChange(e, setStatus)}
               >
                 Pending
-                {status === "PENDING" && <CheckBtn />}
+                {status === false && <CheckBtn />}
               </button>
             </div>
             <div className={`${inputContainer}`}>
               <button
-                value="DONE"
                 className={`${labelStyle} gap-2 bg-green-600 flex flex-row items-center justify-center`}
                 onClick={(e) => handleChange(e, setStatus)}
               >
                 Done
-                {status === "DONE" && <CheckBtn />}
+                {status === true && <CheckBtn />}
               </button>
             </div>
           </div>
@@ -148,13 +183,22 @@ export default function ItemManager({}: Props) {
         </div>
 
         <div className="w-full gap-4 flex">
-          <button
-            className={`${asideUserBtn} w-1/2 m-auto`}
-            onClick={createTask}
-          >
-            New task
-          </button>
-          <button className={`${asideUserBtn} w-1/2 m-auto`}>Update</button>
+          {taskEdit === null ? (
+            <button
+              className={`${asideUserBtn} w-1/2 m-auto`}
+              onClick={createTask}
+            >
+              New task
+            </button>
+          ) : (
+            <button
+              className={`${asideUserBtn} w-1/2 m-auto`}
+              onClick={updateTask}
+            >
+              Update
+            </button>
+          )}
+          <button className={`${asideUserBtn} w-1/2 m-auto`}>Cancel</button>
         </div>
       </form>
     </>

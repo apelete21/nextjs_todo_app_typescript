@@ -15,8 +15,7 @@ const borderBottom: string = "border-b border-[#2222] dark:border-[#fff2]";
 
 export default function ListTasks() {
   const {
-    groupLoading,
-    setGroupLoading,
+    setTaskEdit,
     setSelectedGroup,
     selectedGroup,
     tasksLoading,
@@ -123,7 +122,10 @@ export default function ListTasks() {
                       {element?.content}
                     </div>
                     <div className="flex flex-row gap-2 text-black dark:text-white">
-                      <button className="p-1 opacity-40 hover:opacity-100 cursor-pointer">
+                      <button
+                        className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                        onClick={() => setTaskEdit(element)}
+                      >
                         <PencilIcon width={15} />
                       </button>
                       <button

@@ -204,7 +204,7 @@ export default function ListTasks() {
                             </span>
                             <br />
                             <span>
-                              {`${moment(element?.delay).format('ll')}`}
+                              {`${moment(element?.delay).format("ll")}`}
                             </span>
                           </div>
                         </div>
@@ -218,14 +218,13 @@ export default function ListTasks() {
                   </div>
                 );
               })
-          ) : (
+          ) : data.length === 0 && !tasksLoading && error === null ? (
             <>
               <div className="w-full h-full overflow-scroll p-2 flex items-center justify-center">
                 <span>No tasks to show</span>
               </div>
             </>
-          )}
-          {tasksLoading && (
+          ) : tasksLoading ? (
             <>
               <div className="w-full h-full overflow-scroll p-2 flex items-center justify-center">
                 <ArrowPathIcon
@@ -236,13 +235,16 @@ export default function ListTasks() {
                 />
               </div>
             </>
-          )}
-          {error !== null && (
-            <>
-              <div className="w-full h-full overflow-scroll p-2 flex items-center justify-center">
-                <span>{error}</span>
-              </div>
-            </>
+          ) : (
+            data.length !== 0 &&
+            !tasksLoading &&
+            error !== null && (
+              <>
+                <div className="w-full h-full overflow-scroll p-2 flex items-center justify-center">
+                  <span>{error}</span>
+                </div>
+              </>
+            )
           )}
         </div>
       </div>

@@ -16,8 +16,12 @@ export function List() {
   const [update, setUpdate] = useState<boolean>(false);
   const [setselectToUpdate, setSelectToUpdate] = useState<string>("");
   const newTitle = useRef<any>();
-  const { groupLoading, setGroupLoading, setSelectedGroup }: any =
-    useContext(ItemsContext);
+  const {
+    groupLoading,
+    setGroupLoading,
+    setSelectedGroup,
+    setTasksLoading,
+  }: any = useContext(ItemsContext);
 
   const handleEdit = (selected: string, value: boolean) => {
     setUpdate(value);
@@ -41,10 +45,12 @@ export function List() {
     setUpdate(true);
     setSelectToUpdate("");
     setGroupLoading(true);
+    setSelectedGroup(null)
     return;
   };
 
   const deleteItem = async (id: any) => {
+    setGroupLoading(true);
     const token: any = localStorage.getItem("token");
     console.log(id);
     if (!token) {
@@ -59,6 +65,7 @@ export function List() {
     if (!success) {
       return;
     }
+    setSelectedGroup(null)
     setGroupLoading(true);
     return;
   };
@@ -110,7 +117,10 @@ export function List() {
               return (
                 <div
                   key={index}
-                  onClick={() => setSelectedGroup(element)}
+                  onClick={() => {
+                    setSelectedGroup(element);
+                    setTasksLoading(true)
+                  }}
                   className={`${borderBottom} py-2 flex flex-col justify-between items-center cursor-pointer hover:bg-[#eee5] dark:hover:bg-[#2224] dark:focus:hover:bg-[#3334]`}
                 >
                   <div className="w-full flex flex-row justify-between">

@@ -1,5 +1,5 @@
 import { ItemsContext } from "@/contexts";
-import { taskRequests } from "@/utils";
+import { getDate, taskRequests } from "@/utils";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import React, { useContext, useEffect, useState } from "react";
 
@@ -47,7 +47,7 @@ export default function ItemManager({}: Props) {
       description,
       status,
       priority,
-      date,
+      delay: getDate(date),
     });
     if (!success) return window.alert("Something gone wrong");
     formReset();
@@ -86,7 +86,7 @@ export default function ItemManager({}: Props) {
         description,
         status,
         priority,
-        date,
+        delay: getDate(date),
       }
     );
     if (!success) return window.alert("Something gone wrong");

@@ -49,13 +49,12 @@ export default function ListTasks() {
   const [data, setData] = useState<any>([]);
   const [error, setError] = useState<string | null>(null);
   const [active, setActive] = useState<boolean | null>(null);
-  const [view, setView] = useState<boolean>(false);
-  const [itemView, setItemView] = useState<string>("");
+  const [itemView, setItemView] = useState<string | null>("");
 
   const filterFunc = (status: boolean | null) => setActive(status);
 
   const viewDetails = (item: string) => {
-    setView(!view);
+    if (item === itemView) return setItemView(null);
     setItemView(item);
   };
 
@@ -168,7 +167,7 @@ export default function ListTasks() {
                           className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
                           onClick={() => viewDetails(element._id)}
                         >
-                          {view && itemView === element._id ? (
+                          {itemView === element._id ? (
                             <EyeSlashIcon width={15} />
                           ) : (
                             <EyeIcon width={15} />
@@ -188,7 +187,7 @@ export default function ListTasks() {
                         </button>
                       </div>
                     </div>
-                    {view && itemView === element._id && (
+                    {itemView === element._id && (
                       <div className="p-2 pt-0">
                         <div className="flex flex-row w-full justify-between gap-3 my-2">
                           <div>
@@ -204,11 +203,7 @@ export default function ListTasks() {
                             </span>
                             <br />
                             <span>
-                              {`${weekday[moment(element.delay).day()]} ${
-                                moment(element.delay).day() + 1
-                              } ${
-                                month[moment(element.delay).month()]
-                              } ${moment(element.delay).year()}`}
+                              {`${moment(element?.delay).format('ll')}`}
                             </span>
                           </div>
                         </div>

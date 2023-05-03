@@ -33,9 +33,6 @@ export default function ItemManager({}: Props) {
     useContext(ItemsContext);
 
   const handleChange = (e: any, setItem: any) => {
-    if (setItem === setStatus) {
-      return setStatus(!status);
-    }
     setItem(e.target.value);
   };
 
@@ -63,8 +60,8 @@ export default function ItemManager({}: Props) {
     setDate(null);
     setPriority(null);
     setStatus(undefined);
-    document.forms[1].reset()
-    setTaskEdit(null)
+    document.forms[1].reset();
+    setTaskEdit(null);
   };
 
   useEffect(() => {
@@ -125,7 +122,7 @@ export default function ItemManager({}: Props) {
             <div className={`${inputContainer}`}>
               <button
                 className={`${labelStyle} gap-2 bg-red-600 flex flex-row items-center justify-center`}
-                onClick={(e) => handleChange(e, setStatus)}
+                onClick={() => setStatus(false)}
               >
                 Pending
                 {status === false && <CheckBtn />}
@@ -134,7 +131,7 @@ export default function ItemManager({}: Props) {
             <div className={`${inputContainer}`}>
               <button
                 className={`${labelStyle} gap-2 bg-green-600 flex flex-row items-center justify-center`}
-                onClick={(e) => handleChange(e, setStatus)}
+                onClick={() => setStatus(true)}
               >
                 Done
                 {status === true && <CheckBtn />}
@@ -199,7 +196,12 @@ export default function ItemManager({}: Props) {
               Update
             </button>
           )}
-          <button className={`${asideUserBtn} w-1/2 m-auto`} onClick={formReset}>Cancel</button>
+          <button
+            className={`${asideUserBtn} w-1/2 m-auto`}
+            onClick={formReset}
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </>

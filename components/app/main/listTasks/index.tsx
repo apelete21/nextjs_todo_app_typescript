@@ -69,22 +69,6 @@ export default function ListTasks() {
         <div className="w-full gap-1 flex flex-col">
           <div className="w-full gap-1 flex flex-row justify-between">
             <h1 className="text-3xl">Tasks list</h1>
-            <div className="w-1/4">
-              <select
-                name=""
-                id=""
-                placeholder="Order by"
-                className={`${inputStyle} w-fit`}
-              >
-                <option disabled selected hidden>
-                  Order by
-                </option>
-                <option value={"Creation"}>Creation</option>
-                <option value={"Content"}>Content</option>
-                <option value={"Delay"}>Delay</option>
-                <option value={"Priority"}>Priority</option>
-              </select>
-            </div>
           </div>
           <div className="w-full gap-6 flex flex-row">
             <div className={`${inputContainer}`}>

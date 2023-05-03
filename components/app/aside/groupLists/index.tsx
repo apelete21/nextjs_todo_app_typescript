@@ -25,6 +25,7 @@ export function List() {
   };
 
   const updateItem = async (id: string, title: string) => {
+    setGroupLoading(true);
     const token: any = localStorage.getItem("token");
     if (!token) {
       window.alert("Please login!");

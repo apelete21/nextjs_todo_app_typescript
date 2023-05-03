@@ -37,6 +37,7 @@ export default function ItemManager({}: Props) {
   };
 
   const createTask = async (e: any) => {
+    setTasksLoading(true);
     e.preventDefault();
     if (!content || !description) {
       return setError(true);
@@ -77,6 +78,7 @@ export default function ItemManager({}: Props) {
   }, [taskEdit]);
 
   const updateTask = async (e: any) => {
+    setTasksLoading(true);
     e.preventDefault();
     const { success }: any = await taskRequests(
       `update/${taskEdit?._id}`,

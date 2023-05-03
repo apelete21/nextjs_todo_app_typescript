@@ -59,6 +59,7 @@ export default function ListTasks() {
   };
 
   const deleteTask = async (id: string) => {
+    setTasksLoading(true);
     const { success }: any = await taskRequests(
       `delete/${id}`,
       "DELETE",

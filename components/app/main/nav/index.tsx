@@ -18,6 +18,7 @@ export function Nav({}: any) {
   const groupTitle = useRef<any>();
 
   const CreateGroup = async (e: any) => {
+    setGroupLoading(true);
     e.preventDefault();
     const title = groupTitle.current?.value;
     const token: any = localStorage.getItem("token");
@@ -35,7 +36,7 @@ export function Nav({}: any) {
     }
     setResult("Created!");
     setNewGoup(false);
-    return setGroupLoading(false);
+    setGroupLoading(false);
   };
 
   useEffect(() => {

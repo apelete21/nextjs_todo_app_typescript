@@ -2,11 +2,35 @@ import React, { useContext, useEffect, useState } from "react";
 import PencilIcon from "@heroicons/react/20/solid/PencilIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
+import EyeIcon from "@heroicons/react/20/solid/EyeIcon";
+import EyeSlashIcon from "@heroicons/react/20/solid/EyeSlashIcon";
 import { ItemsContext } from "@/contexts";
 import { taskRequests } from "@/utils";
+import moment from "moment";
 
-const inputStyle: string =
-  "w-full my-2 rounded-lg p-2 dark:text-black bg-gray-100";
+const weekday = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+const month = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 const labelStyle: string =
   "w-full rounded-lg p-2 text-center text-white dark:text-white cursor-pointer hover:opacity-80";
 const inputContainer: string =
@@ -24,6 +48,16 @@ export default function ListTasks() {
 
   const [data, setData] = useState<any>([]);
   const [error, setError] = useState<string | null>(null);
+  const [active, setActive] = useState<boolean | null>(null);
+  const [view, setView] = useState<boolean>(false);
+  const [itemView, setItemView] = useState<string>("");
+
+  const filterFunc = (status: boolean | null) => setActive(status);
+
+  const viewDetails = (item: string) => {
+    setView(!view);
+    setItemView(item);
+  };
 
   const deleteTask = async (id: string) => {
     const { success }: any = await taskRequests(
@@ -73,21 +107,24 @@ export default function ListTasks() {
           <div className="w-full gap-6 flex flex-row">
             <div className={`${inputContainer}`}>
               <label
-                htmlFor="checkbox"
                 className={`${labelStyle} bg-yellow-600`}
+                onClick={() => filterFunc(null)}
               >
                 All
               </label>
             </div>
             <div className={`${inputContainer}`}>
-              <label htmlFor="checkbox" className={`${labelStyle} bg-red-600`}>
+              <label
+                className={`${labelStyle} bg-red-600`}
+                onClick={() => filterFunc(false)}
+              >
                 Pending
               </label>
             </div>
             <div className={`${inputContainer}`}>
               <label
-                htmlFor="checkbox"
                 className={`${labelStyle} bg-green-600`}
+                onClick={() => filterFunc(true)}
               >
                 Done
               </label>
@@ -96,34 +133,95 @@ export default function ListTasks() {
         </div>
         <div className="w-full h-full flex-1 overflow-y-scroll relative">
           {data.length !== 0 && !tasksLoading && error === null ? (
-            data?.map((element: any, index: number) => {
-              return (
-                <>
-                  <div
-                    key={index}
-                    className={`${borderBottom} p-2 flex flex-row justify-between items-center cursor-pointer hover:bg-[#eee5] dark:hover:bg-[#2224] dark:focus:hover:bg-[#2224]`}
-                  >
-                    <div className="py-2 opacity-50 w-full flex-1 overflow-x-scroll">
-                      {element?.content}
-                    </div>
-                    <div className="flex flex-row gap-2 text-black dark:text-white">
-                      <button
-                        className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
-                        onClick={() => setTaskEdit(element)}
+            data
+              ?.filter((element: any) => {
+                if (active === null) {
+                  return element;
+                }
+                if (active === true && element.status === true) {
+                  return element;
+                } else if (active === false && element.status === false) {
+                  return element;
+                }
+              })
+              .map((element: any, index: number) => {
+                return (
+                  <div className={`${borderBottom}`}>
+                    <div
+                      key={index}
+                      className={`p-2 flex flex-row justify-between items-center cursor-pointer hover:bg-[#eee6] dark:hover:bg-[#2224] dark:focus:hover:bg-[#2224]`}
+                    >
+                      <div className="py-2 max-w-[33%] flex-1 overflow-x-scroll">
+                        {element?.content}
+                      </div>
+                      <div
+                        className={`py-2 max-w-[33%] flex-1 overflow-x-scroll ${
+                          element.status === false
+                            ? "text-red-600"
+                            : "text-green-600"
+                        }`}
                       >
-                        <PencilIcon width={15} />
-                      </button>
-                      <button
-                        className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
-                        onClick={() => deleteTask(element?._id)}
-                      >
-                        <TrashIcon width={15} />
-                      </button>
+                        {element.status ? "Done" : "Pending"}
+                      </div>
+                      <div className="flex flex-row gap-2 text-black dark:text-white">
+                        <button
+                          className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                          onClick={() => viewDetails(element._id)}
+                        >
+                          {view && itemView === element._id ? (
+                            <EyeSlashIcon width={15} />
+                          ) : (
+                            <EyeIcon width={15} />
+                          )}
+                        </button>
+                        <button
+                          className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                          onClick={() => setTaskEdit(element)}
+                        >
+                          <PencilIcon width={15} />
+                        </button>
+                        <button
+                          className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                          onClick={() => deleteTask(element?._id)}
+                        >
+                          <TrashIcon width={15} />
+                        </button>
+                      </div>
                     </div>
+                    {view && itemView === element._id && (
+                      <div className="p-2 pt-0">
+                        <div className="flex flex-row w-full justify-between gap-3 my-2">
+                          <div>
+                            <span className="opacity-50 my-2 w-full">
+                              Priority
+                            </span>
+                            <br />
+                            <span> {element.priority} </span>
+                          </div>
+                          <div>
+                            <span className="opacity-50 my-2 w-full">
+                              Delay
+                            </span>
+                            <br />
+                            <span>
+                              {`${weekday[moment(element.delay).day()]} ${
+                                moment(element.delay).day() + 1
+                              } ${
+                                month[moment(element.delay).month()]
+                              } ${moment(element.delay).year()}`}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="w-full">
+                          <span className="opacity-50 my-2">Description</span>
+                          <br />
+                          <span className="w-full">{element.description}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </>
-              );
-            })
+                );
+              })
           ) : (
             <>
               <div className="w-full h-full overflow-scroll p-2 flex items-center justify-center">

@@ -6,11 +6,10 @@ export const getDate = (date: string) => {
   const day: string = date.split("-")[2];
 
   let newDate = new Date();
-  console.log(day, month, year);
+
   newDate.setFullYear(parseInt(year));
   newDate.setMonth(parseInt(month) - 1);
   newDate.setDate(parseInt(day));
 
-  console.log(newDate);
   return newDate;
 };

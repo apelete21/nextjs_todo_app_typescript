@@ -9,29 +9,6 @@ import { taskRequests } from "@/utils";
 import moment from "moment";
 import { ItemsContextType, ResponseType } from "@/interfaces";
 
-const weekday = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-const month = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 const labelStyle: string =
   "w-full rounded-lg p-2 text-center text-white dark:text-white cursor-pointer hover:opacity-80";
 const inputContainer: string =

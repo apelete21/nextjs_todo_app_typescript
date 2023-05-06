@@ -14,7 +14,7 @@ export const groupRequests = async (
     headers: headersList,
     body: JSON.stringify(body) || undefined,
   });
-  if (!response.ok) return new Error();
+  if (!response.ok) return { data:null, success: response.ok };
   const data: any = await response.json();
   return { data, success: response.ok };
 };

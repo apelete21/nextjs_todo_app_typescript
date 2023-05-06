@@ -29,7 +29,10 @@ export default function ListTasks(): JSX.Element {
   const [active, setActive] = useState<boolean | null>(null);
   const [itemView, setItemView] = useState<string | null>("");
 
-  const filterFunc = (status: boolean | null) => setActive(status);
+  const filterFunc = (status: boolean | null) => {
+    setItemView(null)
+    setActive(status);
+  };
 
   const viewDetails = (item: string) => {
     if (item === itemView) return setItemView(null);

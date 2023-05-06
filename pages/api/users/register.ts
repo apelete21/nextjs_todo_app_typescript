@@ -38,13 +38,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const token = createToken(newUser?._id);
 
-    res
-      .status(200)
-      .send({
-        message: "Success",
-        user: { ...newUser._doc, _id: null },
-        token,
-      });
+    res.status(200).send({
+      message: "Success",
+      user: { ...newUser._doc, _id: null, password: null },
+      token,
+    });
   } catch (error: any) {
     return res.status(500).send({ message: `${error.message}` });
   }

@@ -1,12 +1,12 @@
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { MouseEventHandler } from "react";
 
 type Props = {
-  className: String;
+  className: string;
 };
 
-export function BackBtn({ className }: Props) {
-  const router = useRouter();
+export function BackBtn({ className }: Props): JSX.Element {
+  const router: NextRouter = useRouter();
   const BackLink: MouseEventHandler = (): void => {
     router.back();
   };

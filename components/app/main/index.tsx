@@ -5,7 +5,7 @@ import ItemManager from "./itemManager";
 
 type Props = {};
 
-export default function MainWrapper({}: Props) {
+export default function MainWrapper({}: Props):JSX.Element {
   return (
     <main className="w-3/4 h-full flex gap-8 justify-between my-auto flex-col p-4">
       <Nav />

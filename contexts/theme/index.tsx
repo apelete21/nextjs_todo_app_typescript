@@ -1,23 +1,27 @@
+import { childrenType } from "@/interfaces";
+import { ThemeContextType } from "@/interfaces";
 import { createContext, useEffect, useState } from "react";
 
-export const ThemeContext = createContext({});
+export const ThemeContext = createContext<ThemeContextType>({
+  theme: "light",
+  toggleTheme: function (): void {},
+});
 
-export const ThemeContextProvider = ({ children }: any) => {
-  const [theme, setTheme] = useState("light");
+export const ThemeContextProvider = ({ children }: childrenType) => {
+  const [theme, setTheme] = useState<string>("light");
 
   useEffect(() => {
     let current: any = localStorage.getItem("theme");
     if (
       (!current &&
-      !window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+        !window.matchMedia("(prefers-color-scheme: dark)").matches) ||
       current === "light"
     ) {
       setTheme("light");
       current = "light";
       document.documentElement.classList.remove("dark");
     } else if (
-      (!current &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+      (!current && window.matchMedia("(prefers-color-scheme: dark)").matches) ||
       current === "dark"
     ) {
       setTheme("dark");
@@ -27,7 +31,7 @@ export const ThemeContextProvider = ({ children }: any) => {
     localStorage.setItem("theme", current);
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = (): void => {
     if (theme === "light") {
       setTheme("dark");
       document.documentElement.classList.add("dark");

@@ -1,10 +1,19 @@
 import { BackBtn, Loader, ThemeChangerBtn } from "@/components";
 import { UserContext } from "@/contexts";
+import { ResponseType, UserContextType } from "@/interfaces";
 import { User } from "@/libs";
 import { useIdentify } from "@/utils";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { NextRouter, useRouter } from "next/router";
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEventHandler,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import isEmail from "validator/lib/isEmail";
 
 const inputStyle: String = "w-full my-2 rounded-lg p-2";
@@ -18,8 +27,8 @@ export default function Login() {
     setSessionSet,
     sessionSet,
     setCurrentUser,
-  }: any = useContext(UserContext);
-  const router = useRouter();
+  }: any = useContext<{} | UserContextType>(UserContext);
+  const router: NextRouter = useRouter();
 
   // input state elements
   const [email, setEmail] = useState<string>("");
@@ -34,11 +43,14 @@ export default function Login() {
   };
 
   // onchange function with error reset...
-  function handleChange(e: any, setItem: any) {
+  function handleChange<InputEvent>(
+    e: ChangeEvent<any>,
+    setItem: Dispatch<SetStateAction<any>>
+  ): void {
     setEmaileError(false);
     setPasswordeError(false);
     setError("");
-    setItem(e.target.value);
+    setItem(e?.target?.value);
   }
 
   // auth login
@@ -47,7 +59,7 @@ export default function Login() {
   }, [sessionSet]);
 
   // register function
-  const sendLogin = async (e: any) => {
+  const sendLogin: FormEventHandler = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     // Inputs verification
@@ -59,7 +71,7 @@ export default function Login() {
     setIsLoading(true);
     const user: User = { fullname: null, email, password };
 
-    const res: any = await useIdentify(user, "login");
+    const res: ResponseType = await useIdentify(user, "login");
     setIsLoading(false);
 
     if (res.success === false) {

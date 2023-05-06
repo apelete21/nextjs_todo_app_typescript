@@ -1,13 +1,14 @@
+import { GroupDataType, ItemsContextType, TaskDataType, childrenType } from "@/interfaces";
 import { createContext, useState } from "react";
 
-export const ItemsContext = createContext({});
+export const ItemsContext = createContext<ItemsContextType | {}>({});
 
-export const ItemsContextProvider = ({ children }: any) => {
+export const ItemsContextProvider = ({ children }: childrenType) => {
   const [groupLoading, setGroupLoading] = useState<boolean>(true);
-  const [selectedGroup, setSelectedGroup] = useState<any>();
+  const [selectedGroup, setSelectedGroup] = useState<GroupDataType | null>();
   const [tasksLoading, setTasksLoading] = useState<boolean>();
-  const [selectedTask, setSelectedTask] = useState<any>();
-  const [taskEdit, setTaskEdit] = useState<any>(null);
+  const [selectedTask, setSelectedTask] = useState<TaskDataType | null>(null);
+  const [taskEdit, setTaskEdit] = useState<TaskDataType | null>(null);
   const [search, setSearch] = useState<string>("");
   return (
     <>

@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {};
 
-export function Loader({}: Props) {
+export function Loader({}: Props):JSX.Element {
   return (
     <div className="w-screen h-screen flex items-center justify-center">
       <div className="w-[60px] h-[60px]">

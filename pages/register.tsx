@@ -2,10 +2,18 @@ import { BackBtn, Loader, ThemeChangerBtn } from "@/components";
 import { useIdentify } from "@/utils";
 import { User } from "@/libs";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FormEventHandler,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import isEmail from "validator/lib/isEmail";
 import { UserContext } from "@/contexts";
 import { useRouter } from "next/router";
+import { ResponseType } from "@/interfaces";
 
 const inputStyle: String = "w-full my-2 rounded-lg p-2";
 const buttonStyle: String =
@@ -17,7 +25,6 @@ export default function Register({}: Props) {
   const {
     isLoading,
     sessionSet,
-    currentUser,
     setIsLoading,
     setSessionSet,
     setCurrentUser,
@@ -49,7 +56,7 @@ export default function Register({}: Props) {
   }, [sessionSet]);
 
   // onchange function with error reset...
-  function handleChange(e: any, setItem: any) {
+  function handleChange(e: any, setItem: Dispatch<SetStateAction<any>>) {
     setFullnameError(false);
     setEmaileError(false);
     setPasswordeError(false);
@@ -65,7 +72,7 @@ export default function Register({}: Props) {
   }
 
   // register function
-  const sendRegistration = async (e: any) => {
+  const sendRegistration: FormEventHandler = async (e: any) => {
     e.preventDefault();
 
     // Inputs verification
@@ -86,10 +93,10 @@ export default function Register({}: Props) {
     setIsLoading(true);
     const user: User = { fullname, email, password };
 
-    const res = await useIdentify(user, "register");
+    const res: ResponseType = await useIdentify(user, "register");
     setIsLoading(false);
 
-    if (res.success === false) {
+    if (res.success === false || res.success === undefined) {
       return setError(
         res.data?.message || "Please try again, or reload the page."
       );

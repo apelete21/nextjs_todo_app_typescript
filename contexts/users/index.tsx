@@ -1,17 +1,21 @@
+import { childrenType } from "@/interfaces";
+import { UserContextType } from "@/interfaces";
+import { UserType } from "@/interfaces";
 import { authenticate } from "@/utils";
-import { useRouter } from "next/router";
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { SetStateAction, createContext, useEffect, useState } from "react";
 
-export const UserContext = createContext({});
+export const UserContext = createContext<UserContextType | {}>({
+  isLoading: true,
+  sessionSet: false,
+  currentUser: undefined,
+});
 
-type Props = {
-  children: ReactNode | any;
-};
-
-export const UserContextProvider = (props: Props) => {
+export const UserContextProvider = (props: childrenType) => {
   // *******************************
-  const [sessionSet, setSessionSet] = useState(false);
-  const [currentUser, setCurrentUser] = useState<object>();
+  const [sessionSet, setSessionSet] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<UserType | undefined | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(true);
 
   // controlling if user allready logged in on first load
@@ -34,7 +38,7 @@ export const UserContextProvider = (props: Props) => {
       setSessionSet(true);
       setTimeout(() => {
         setIsLoading(false);
-      }, 1500);
+      }, 1000);
     }
     refreshUser();
   }, [sessionSet]);

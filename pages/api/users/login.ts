@@ -26,7 +26,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     res
       .status(200)
-      .send({ message: "Success", user: { ...user._doc, _id: null }, token });
+      .send({
+        message: "Success",
+        user: { ...user._doc, _id: null, password: null },
+        token,
+      });
   } catch (error: any) {
     return res.status(500).send({ message: `${error.message}` });
   }

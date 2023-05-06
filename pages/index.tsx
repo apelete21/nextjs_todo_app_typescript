@@ -1,9 +1,12 @@
 import { App, Loader, Welcome } from "@/components";
 import { UserContext } from "@/contexts";
+import { UserContextType } from "@/interfaces";
 import { useContext } from "react";
 
 export default function Home() {
-  const { sessionSet, isLoading }: any = useContext(UserContext);
+  const { sessionSet, isLoading }: any = useContext<{} | UserContextType>(
+    UserContext
+  );
 
   if (sessionSet && !isLoading) {
     return (

@@ -2,13 +2,15 @@ import { ThemeContext } from "@/contexts";
 import React, { useContext } from "react";
 import MoonIcon from "@heroicons/react/20/solid/MoonIcon";
 import SunIcon from "@heroicons/react/20/solid/SunIcon";
+import { ThemeContextType } from "@/interfaces";
 
 type Props = {
   className: string;
 };
 
-export function ThemeChangerBtn({ className }: Props) {
-  const { theme, toggleTheme }: any = useContext(ThemeContext);
+export function ThemeChangerBtn({ className }: Props): JSX.Element {
+  const { theme, toggleTheme }: any =
+    useContext<ThemeContextType>(ThemeContext);
   return (
     <>
       <span

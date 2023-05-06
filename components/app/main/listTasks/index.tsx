@@ -7,6 +7,7 @@ import EyeSlashIcon from "@heroicons/react/20/solid/EyeSlashIcon";
 import { ItemsContext } from "@/contexts";
 import { taskRequests } from "@/utils";
 import moment from "moment";
+import { ItemsContextType, ResponseType } from "@/interfaces";
 
 const weekday = [
   "Sunday",
@@ -37,14 +38,14 @@ const inputContainer: string =
   "w-full py-2 flex items-center justify-left relative gap-4";
 const borderBottom: string = "border-b border-[#2222] dark:border-[#fff2]";
 
-export default function ListTasks() {
+export default function ListTasks(): JSX.Element {
   const {
     setTaskEdit,
     setSelectedGroup,
     selectedGroup,
     tasksLoading,
     setTasksLoading,
-  }: any = useContext(ItemsContext);
+  }: any = useContext<{} | ItemsContextType>(ItemsContext);
 
   const [data, setData] = useState<any>([]);
   const [error, setError] = useState<string | null>(null);

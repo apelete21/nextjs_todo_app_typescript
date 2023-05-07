@@ -7,7 +7,7 @@ import EyeSlashIcon from "@heroicons/react/20/solid/EyeSlashIcon";
 import { ItemsContext } from "@/contexts";
 import { taskRequests } from "@/utils";
 import moment from "moment";
-import { ItemsContextType, ResponseType } from "@/interfaces";
+import { ItemsContextType, ResponseType, TaskDataType } from "@/interfaces";
 
 const labelStyle: string =
   "w-full rounded-lg p-2 text-center text-white dark:text-white cursor-pointer hover:opacity-80";
@@ -24,7 +24,7 @@ export default function ListTasks(): JSX.Element {
     setTasksLoading,
   }: any = useContext<{} | ItemsContextType>(ItemsContext);
 
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<TaskDataType[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [active, setActive] = useState<boolean | null>(null);
   const [itemView, setItemView] = useState<string | null>("");

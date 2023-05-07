@@ -43,7 +43,7 @@ export default function Login() {
   };
 
   // onchange function with error reset...
-  function handleChange<InputEvent>(
+  function handleChange(
     e: ChangeEvent<any>,
     setItem: Dispatch<SetStateAction<any>>
   ): void {

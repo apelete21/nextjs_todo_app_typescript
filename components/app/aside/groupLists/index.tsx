@@ -1,21 +1,30 @@
 import { ItemsContext } from "@/contexts";
 import { groupRequests } from "@/utils";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  MutableRefObject,
+  ReactElement,
+  RefObject,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import PencilIcon from "@heroicons/react/20/solid/PencilIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import PlusIcon from "@heroicons/react/20/solid/PlusIcon";
+import { GroupDataType } from "@/interfaces";
 
 const borderBottom: String = "border-b border-[#2222] dark:border-[#fff2]";
 const inputStyle: String =
   "w-full my-2 rounded-lg p-2 dark:text-black bg-gray-300";
 
 export function List() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<GroupDataType[]>([]);
   const [update, setUpdate] = useState<boolean>(false);
   const [setselectToUpdate, setSelectToUpdate] = useState<string>("");
-  const newTitle = useRef<any>();
+  const newTitle = useRef<RefObject<HTMLInputElement> | any>();
   const {
     search,
     setSearch,
@@ -117,7 +126,7 @@ export function List() {
           </>
           {data?.length >= 0 &&
             data
-              ?.filter((element: any) => {
+              ?.filter((element: GroupDataType) => {
                 if (search === "") {
                   return element;
                 }
@@ -125,7 +134,7 @@ export function List() {
                   return element;
                 }
               })
-              .map((element: any, index: number) => {
+              .map((element: GroupDataType, index: number) => {
                 return (
                   <div
                     key={index}
@@ -145,7 +154,7 @@ export function List() {
                             <button
                               className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
                               onClick={() =>
-                                updateItem(element._id, newTitle.current.value)
+                                updateItem(element._id, newTitle.current?.value)
                               }
                             >
                               <CheckIcon width={20} />

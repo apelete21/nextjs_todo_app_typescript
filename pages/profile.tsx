@@ -83,9 +83,15 @@ export default function profile() {
                     </p>
                   </div>
                   <div>
-                    <Link title="Dashboard" href={"/dashboard"} className="underline">
+                    {currentUser?.role === "ADMIN" && (
+                      <Link
+                        title="Dashboard"
+                        href={"/dashboard"}
+                        className="underline"
+                      >
                         View Dashboard
-                    </Link>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </>

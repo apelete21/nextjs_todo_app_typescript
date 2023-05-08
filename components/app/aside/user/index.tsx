@@ -45,7 +45,7 @@ export function User({}: Props) {
           <button className={`${asideUserBtn} w-full`} onClick={Logout}>
             Logout
           </button>
-          <Link href={"/profile"} className={`${asideUserBtn} w-full`}>Profile</Link>
+          <Link href={"/profile"} className={`${asideUserBtn} text-center w-full`}>Profile</Link>
         </div>
       </div>
     </>

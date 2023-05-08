@@ -25,7 +25,6 @@ export function List() {
   const newTitle = useRef<RefObject<HTMLInputElement> | any>();
   const {
     search,
-    setSearch,
     groupLoading,
     setGroupLoading,
     setSelectedGroup,
@@ -61,7 +60,6 @@ export function List() {
   const deleteItem = async (id: any) => {
     setGroupLoading(true);
     const token: any = localStorage.getItem("token");
-    console.log(id);
     if (!token) {
       window.alert("Please login!");
     }

@@ -114,7 +114,7 @@ export default function ItemManager({}: Props) {
           onSubmit={(e) => e.preventDefault()}
         >
           <h1 className="text-3xl">
-            {isUpdating ? "Create a new task" : "Update a task"}
+            {!isUpdating ? "Create a new task" : "Update a task"}
           </h1>
           <div className="flex flex-col gap-5 h-full">
             <input
@@ -200,7 +200,7 @@ export default function ItemManager({}: Props) {
                 className={`${asideUserBtn} w-1/2 m-auto`}
                 onClick={createTask}
               >
-                New task
+                Create task
               </button>
             ) : (
               <button

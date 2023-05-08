@@ -1,8 +1,6 @@
 import { ItemsContext } from "@/contexts";
 import { groupRequests } from "@/utils";
 import React, {
-  MutableRefObject,
-  ReactElement,
   RefObject,
   useContext,
   useEffect,
@@ -136,55 +134,59 @@ export function List() {
               })
               .map((element: GroupDataType, index: number) => {
                 return (
-                  <div
-                    key={index}
-                    onClick={() => {
-                      setSelectedGroup(element);
-                      setTasksLoading(true);
-                    }}
-                    className={`${borderBottom} py-2 flex flex-col justify-between items-center cursor-pointer hover:bg-[#eee5] dark:hover:bg-[#2224] dark:focus:hover:bg-[#3334]`}
-                  >
-                    <div className="w-full flex flex-row justify-between">
-                      <div className="py-2 opacity-50 w-full flex-1 overflow-x-scroll first-letter:capitalize">
-                        {element.title}
-                      </div>
-                      <div className="flex flex-row gap-2 text-black dark:text-white">
-                        {update && setselectToUpdate === element._id ? (
-                          <>
-                            <button
-                              className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
-                              onClick={() =>
-                                updateItem(element._id, newTitle.current?.value)
-                              }
-                            >
-                              <CheckIcon width={20} />
-                            </button>
-                            <button
-                              className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
-                              onClick={() => handleEdit("", false)}
-                            >
-                              <PlusIcon
-                                width={20}
-                                className="rotate-45 origin-center"
-                              />
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <button
-                              className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
-                              onClick={() => handleEdit(element._id, true)}
-                            >
-                              <PencilIcon width={15} />
-                            </button>
-                            <button
-                              className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
-                              onClick={() => deleteItem(element._id)}
-                            >
-                              <TrashIcon width={15} />
-                            </button>
-                          </>
-                        )}
+                  <div key={index} className={`${borderBottom} flex flex-col gap-2`}>
+                    <div className=" w-full pl-1 flex flex-row justify-between items-center cursor-pointer hover:bg-[#eee5] dark:hover:bg-[#2224] dark:focus:hover:bg-[#3334]">
+                      <div className="w-full py-2 flex flex-row justify-between">
+                        <div
+                          className="w-2/3 py-2 opacity-50 flex-1 overflow-x-scroll first-letter:capitalize"
+                          onClick={() => {
+                            setSelectedGroup(element);
+                            setTasksLoading(true);
+                          }}
+                        >
+                          {element.title}
+                        </div>
+                        <div className="flex flex-row gap-2 text-black dark:text-white">
+                          {update && setselectToUpdate === element._id ? (
+                            <>
+                              <button
+                                className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                                onClick={() =>
+                                  updateItem(
+                                    element._id,
+                                    newTitle.current?.value
+                                  )
+                                }
+                              >
+                                <CheckIcon width={20} />
+                              </button>
+                              <button
+                                className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                                onClick={() => handleEdit("", false)}
+                              >
+                                <PlusIcon
+                                  width={20}
+                                  className="rotate-45 origin-center"
+                                />
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <button
+                                className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                                onClick={() => handleEdit(element._id, true)}
+                              >
+                                <PencilIcon width={15} />
+                              </button>
+                              <button
+                                className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
+                                onClick={() => deleteItem(element._id)}
+                              >
+                                <TrashIcon width={15} />
+                              </button>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                     {update && setselectToUpdate === element._id && (

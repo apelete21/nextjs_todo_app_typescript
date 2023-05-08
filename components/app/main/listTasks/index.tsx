@@ -22,6 +22,7 @@ export default function ListTasks(): JSX.Element {
     selectedGroup,
     tasksLoading,
     setTasksLoading,
+    setIsManaging,
   }: any = useContext<{} | ItemsContextType>(ItemsContext);
 
   const [data, setData] = useState<TaskDataType[]>([]);
@@ -86,30 +87,32 @@ export default function ListTasks(): JSX.Element {
             <h1 className="text-3xl">Tasks list</h1>
           </div>
           <div className="w-full gap-6 flex flex-row">
-            <div className={`${inputContainer}`}>
-              <label
-                className={`${labelStyle} bg-yellow-600`}
-                onClick={() => filterFunc(null)}
-              >
-                All
-              </label>
-            </div>
-            <div className={`${inputContainer}`}>
-              <label
-                className={`${labelStyle} bg-red-600`}
-                onClick={() => filterFunc(false)}
-              >
-                Pending
-              </label>
-            </div>
-            <div className={`${inputContainer}`}>
-              <label
-                className={`${labelStyle} bg-green-600`}
-                onClick={() => filterFunc(true)}
-              >
-                Done
-              </label>
-            </div>
+            {selectedGroup !== "" && <>
+              <div className={`${inputContainer}`}>
+                <label
+                  className={`${labelStyle} bg-yellow-600`}
+                  onClick={() => filterFunc(null)}
+                >
+                  All
+                </label>
+              </div>
+              <div className={`${inputContainer}`}>
+                <label
+                  className={`${labelStyle} bg-red-600`}
+                  onClick={() => filterFunc(false)}
+                >
+                  Pending
+                </label>
+              </div>
+              <div className={`${inputContainer}`}>
+                <label
+                  className={`${labelStyle} bg-green-600`}
+                  onClick={() => filterFunc(true)}
+                >
+                  Done
+                </label>
+              </div>
+            </>}
           </div>
         </div>
         <div className="w-full h-full flex-1 overflow-y-scroll relative">
@@ -157,7 +160,9 @@ export default function ListTasks(): JSX.Element {
                         </button>
                         <button
                           className="p-1 opacity-40 hover:opacity-100 cursor-pointer"
-                          onClick={() => setTaskEdit(element)}
+                          onClick={() => {
+                            setIsManaging(true)
+                            setTaskEdit(element)}}
                         >
                           <PencilIcon width={15} />
                         </button>

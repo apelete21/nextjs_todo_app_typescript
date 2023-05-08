@@ -29,8 +29,16 @@ export default function ItemManager({}: Props) {
   const [date, setDate] = useState<any>();
   const [error, setError] = useState<null | boolean>();
 
-  const { selectedGroup, setTasksLoading, taskEdit, setTaskEdit }: any =
-    useContext(ItemsContext);
+  const {
+    selectedGroup,
+    setTasksLoading,
+    taskEdit,
+    setTaskEdit,
+    isManaging,
+    setIsManaging,
+    isUpdating,
+    setIsUpdating,
+  }: any = useContext(ItemsContext);
 
   const handleChange = (e: any, setItem: any) => {
     setItem(e.target.value);
@@ -61,8 +69,9 @@ export default function ItemManager({}: Props) {
     setDate(null);
     setPriority(null);
     setStatus(undefined);
-    document.forms[1].reset();
+    document.forms[1]?.reset();
     setTaskEdit(null);
+    setIsManaging(false);
   };
 
   useEffect(() => {
@@ -97,115 +106,134 @@ export default function ItemManager({}: Props) {
     setTasksLoading(true);
   };
 
-  return (
-    <>
-      <form
-        className="w-full h-full gap-4 flex flex-col justify-between"
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <h1 className="text-3xl">New task</h1>
-        <div className="">
-          <input
-            type="text"
-            className={`${inputStyle}`}
-            placeholder="Content..."
-            value={content}
-            onChange={(e) => handleChange(e, setContent)}
-          />
-          <textarea
-            className={`${inputStyle} max-h-30 resize-none`}
-            rows={6}
-            placeholder="Description..."
-            value={description}
-            onChange={(e) => handleChange(e, setDescription)}
-          ></textarea>
-          <div className="w-full flex items-center justify-left gap-4">
-            <div className={""}>Status:</div>
-            <div className={`${inputContainer}`}>
-              <button
-                className={`${labelStyle} gap-2 bg-red-600 flex flex-row items-center justify-center`}
-                onClick={() => setStatus(false)}
-              >
-                Pending
-                {status === false && <CheckBtn />}
-              </button>
+  if (isManaging)
+    return (
+      <>
+        <form
+          className="w-full h-full gap-4 flex flex-col justify-stretch"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <h1 className="text-3xl">
+            {isUpdating ? "Create a new task" : "Update a task"}
+          </h1>
+          <div className="flex flex-col gap-5 h-full">
+            <input
+              type="text"
+              className={`${inputStyle}`}
+              placeholder="Content..."
+              value={content}
+              onChange={(e) => handleChange(e, setContent)}
+            />
+            <textarea
+              className={`${inputStyle} resize-none`}
+              rows={6}
+              placeholder="Description..."
+              value={description}
+              onChange={(e) => handleChange(e, setDescription)}
+            ></textarea>
+            <div className="w-full flex items-center justify-left gap-4">
+              <div className={""}>Status:</div>
+              <div className={`${inputContainer}`}>
+                <button
+                  className={`${labelStyle} gap-2 bg-red-600 flex flex-row items-center justify-center`}
+                  onClick={() => setStatus(false)}
+                >
+                  Pending
+                  {status === false && <CheckBtn />}
+                </button>
+              </div>
+              <div className={`${inputContainer}`}>
+                <button
+                  className={`${labelStyle} gap-2 bg-green-600 flex flex-row items-center justify-center`}
+                  onClick={() => setStatus(true)}
+                >
+                  Done
+                  {status === true && <CheckBtn />}
+                </button>
+              </div>
             </div>
-            <div className={`${inputContainer}`}>
-              <button
-                className={`${labelStyle} gap-2 bg-green-600 flex flex-row items-center justify-center`}
-                onClick={() => setStatus(true)}
-              >
-                Done
-                {status === true && <CheckBtn />}
-              </button>
+            <div className="w-full flex items-center justify-left gap-4">
+              <div className={""}>Priority:</div>
+              <div className={`${inputContainer}`}>
+                <button
+                  value="LOW"
+                  className={`${labelStyle} gap-2 bg-green-800 flex flex-row items-center justify-center`}
+                  onClick={(e) => handleChange(e, setPriority)}
+                >
+                  LOW
+                  {priority === "LOW" && <CheckBtn />}
+                </button>
+              </div>
+              <div className={`${inputContainer}`}>
+                <button
+                  className={`${labelStyle} gap-2 bg-yellow-700 flex flex-row items-center justify-center`}
+                  value="NORMAL"
+                  onClick={(e) => handleChange(e, setPriority)}
+                >
+                  NORMAL
+                  {priority === "NORMAL" && <CheckBtn />}
+                </button>
+              </div>
+              <div className={`${inputContainer}`}>
+                <button
+                  value="HIGH"
+                  className={`${labelStyle} gap-2 bg-red-900 flex flex-row items-center justify-center`}
+                  onClick={(e) => handleChange(e, setPriority)}
+                >
+                  HIGH
+                  {priority === "HIGH" && <CheckBtn />}
+                </button>
+              </div>
             </div>
+            <input
+              type="date"
+              placeholder="delay"
+              className={`${inputStyle}`}
+              value={date}
+              onChange={(e) => handleChange(e, setDate)}
+            />
           </div>
-          <div className="w-full flex items-center justify-left gap-4">
-            <div className={""}>Priority:</div>
-            <div className={`${inputContainer}`}>
-              <button
-                value="LOW"
-                className={`${labelStyle} gap-2 bg-green-800 flex flex-row items-center justify-center`}
-                onClick={(e) => handleChange(e, setPriority)}
-              >
-                LOW
-                {priority === "LOW" && <CheckBtn />}
-              </button>
-            </div>
-            <div className={`${inputContainer}`}>
-              <button
-                className={`${labelStyle} gap-2 bg-yellow-700 flex flex-row items-center justify-center`}
-                value="NORMAL"
-                onClick={(e) => handleChange(e, setPriority)}
-              >
-                NORMAL
-                {priority === "NORMAL" && <CheckBtn />}
-              </button>
-            </div>
-            <div className={`${inputContainer}`}>
-              <button
-                value="HIGH"
-                className={`${labelStyle} gap-2 bg-red-900 flex flex-row items-center justify-center`}
-                onClick={(e) => handleChange(e, setPriority)}
-              >
-                HIGH
-                {priority === "HIGH" && <CheckBtn />}
-              </button>
-            </div>
-          </div>
-          <input
-            type="date"
-            placeholder="delay"
-            className={`${inputStyle}`}
-            value={date}
-            onChange={(e) => handleChange(e, setDate)}
-          />
-        </div>
 
-        <div className="w-full gap-4 flex">
-          {taskEdit === null ? (
+          <div className="w-full gap-4 flex">
+            {taskEdit === null ? (
+              <button
+                className={`${asideUserBtn} w-1/2 m-auto`}
+                onClick={createTask}
+              >
+                New task
+              </button>
+            ) : (
+              <button
+                className={`${asideUserBtn} w-1/2 m-auto`}
+                onClick={updateTask}
+              >
+                Update
+              </button>
+            )}
             <button
               className={`${asideUserBtn} w-1/2 m-auto`}
-              onClick={createTask}
+              onClick={formReset}
             >
-              New task
+              Cancel
             </button>
-          ) : (
-            <button
-              className={`${asideUserBtn} w-1/2 m-auto`}
-              onClick={updateTask}
-            >
-              Update
-            </button>
-          )}
+          </div>
+        </form>
+      </>
+    );
+  else {
+    return (
+      <>
+        <div className="w-full h-full gap-4 flex flex-col justify-stretch">
           <button
             className={`${asideUserBtn} w-1/2 m-auto`}
-            onClick={formReset}
+            onClick={() => {
+              setIsUpdating(false)
+              setIsManaging(true)}}
           >
-            Cancel
+            New task
           </button>
         </div>
-      </form>
-    </>
-  );
+      </>
+    );
+  }
 }

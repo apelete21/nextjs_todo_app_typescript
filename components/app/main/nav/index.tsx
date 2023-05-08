@@ -54,7 +54,7 @@ export function Nav({}: any) {
           </div>
           <div className="flex gap-2 w-fit">
             <button
-              className={`${asideUserBtn} w-fit`}
+              className={`${asideUserBtn} w-fit flex flex-row items-center gap-1`}
               onClick={() => setNewGoup(!newGroup)}
             >
               {!newGroup ? (

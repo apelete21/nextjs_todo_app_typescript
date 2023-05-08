@@ -58,9 +58,15 @@ export function Nav({}: any) {
               onClick={() => setNewGoup(!newGroup)}
             >
               {!newGroup ? (
-                <DocumentPlusIcon width={20} />
+                <>
+                  <DocumentPlusIcon width={20} />
+                  New group
+                </>
               ) : (
-                <PlusIcon width={20} style={{ transform: "rotate(45deg)" }} />
+                <>
+                  <PlusIcon width={20} style={{ transform: "rotate(45deg)" }} />
+                  Cancel
+                </>
               )}
             </button>
           </div>

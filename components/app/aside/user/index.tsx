@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import UserCircleIcon from "@heroicons/react/24/solid/UserCircleIcon";
 import { ThemeChangerBtn } from "@/components/themeChangerBtn";
+import Link from "next/link";
 
 type Props = {};
 
@@ -44,7 +45,7 @@ export function User({}: Props) {
           <button className={`${asideUserBtn} w-full`} onClick={Logout}>
             Logout
           </button>
-          <button className={`${asideUserBtn} w-full`}>Profile</button>
+          <Link href={"/profile"} className={`${asideUserBtn} w-full`}>Profile</Link>
         </div>
       </div>
     </>

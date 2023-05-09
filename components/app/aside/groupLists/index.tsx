@@ -59,6 +59,7 @@ export function List() {
 
   const deleteItem = async (id: any) => {
     setGroupLoading(true);
+    setTasksLoading(true)
     const token: any = localStorage.getItem("token");
     if (!token) {
       window.alert("Please login!");
@@ -74,6 +75,7 @@ export function List() {
     }
     setSelectedGroup(null);
     setGroupLoading(true);
+    setTasksLoading(true)
     return;
   };
 

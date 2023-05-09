@@ -36,7 +36,10 @@ export default function profile() {
                     <UserCircleIcon width={100} />
                   </div>
                   <div className="">
-                    <button className="bg-blue-600 dark:bg-violet-600 hover:opacity-60 rounded-lg text-white p-2">
+                    <button
+                      className="bg-blue-600 dark:bg-violet-600 hover:opacity-60 rounded-lg text-white p-2"
+                      onClick={() => alert("Functionnality not yet available!")}
+                    >
                       Change profile
                     </button>
                   </div>

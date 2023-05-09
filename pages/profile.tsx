@@ -6,11 +6,7 @@ import Link from "next/link";
 import React, { useContext } from "react";
 
 export default function profile() {
-  const {
-    isLoading,
-    sessionSet,
-    currentUser,
-  }: any = useContext(UserContext);
+  const { isLoading, sessionSet, currentUser }: any = useContext(UserContext);
 
   if (isLoading)
     return (
@@ -28,7 +24,7 @@ export default function profile() {
     return (
       <>
         <div className="w-screen h-screen flex flex-col items-center justify-center">
-          <div className="max-w-xl w-10/12 flex flex-col gap-4 p-4 my-[20px] bg-slate-400 dark:bg-stone-900 bg-opacity-10 rounded-lg items-center">
+          <div className="max-w-xl w-10/12 flex flex-col gap-4 p-4 my-[20px] bg-gray-400 dark:bg-stone-900 bg-opacity-10 rounded-lg items-center">
             <div className="mb-8 w-full flex flex-col pt-1 items-center justify-between">
               <BackBtn className={"self-start"} />
               <ThemeChangerBtn className={"self-end"} />
